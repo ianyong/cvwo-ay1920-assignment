@@ -3,13 +3,11 @@
 one:
   name: MyString
   description: MyText
-  due_date: 2019-12-28
-  due_time: 2019-12-28 18:49:33
+  due_date: 2019-12-29
   is_completed: false
 
 two:
   name: MyString
   description: MyText
-  due_date: 2019-12-28
-  due_time: 2019-12-28 18:49:33
+  due_date: 2019-12-29
   is_completed: false
