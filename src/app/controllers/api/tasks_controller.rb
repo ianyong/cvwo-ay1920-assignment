@@ -1,2 +1,2 @@
-class Api::TasksController < ApiController
+class Api::TasksController < ApplicationController
 end
