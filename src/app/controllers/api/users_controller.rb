@@ -1,4 +1,4 @@
-class Api::UsersController < ApplicationController
+class Api::UsersController < ApiController
   # Skip authorization for login and register
   skip_before_action :authenticate_request, only: %i[login register]
 
