@@ -1,13 +1,25 @@
 import React, { useEffect, useState } from "react";
+import { navigate } from "@reach/router";
 
 function TaskList() {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
     const requestTasks = async () => {
-      const response = await fetch("/api/tasks")
+      let token = localStorage.getItem("token");
+      const response = await fetch("/api/tasks", {
+        method: "GET",
+        headers: {
+          Authorization: token
+        }
+      })
       const { data } = await response.json();
-      setTasks(data);
+      if(response.status === 500) {
+        // Not logged in
+        navigate("/login")
+      } else {
+        setTasks(data);
+      }
     };
     requestTasks();
   }, []);
