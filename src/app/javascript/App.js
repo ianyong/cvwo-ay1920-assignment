@@ -1,8 +1,8 @@
 import React from "react";
 import { Router } from "@reach/router";
-import TaskList from "./TaskList";
-import AddTask from "./AddTask";
-import Login from "./Login";
+import TaskList from "./pages/TaskList";
+import AddTask from "./pages/AddTask";
+import Login from "./pages/Login";
 
 function App() {
   return (
