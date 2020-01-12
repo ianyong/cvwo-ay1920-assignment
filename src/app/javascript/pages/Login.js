@@ -1,6 +1,8 @@
 import React from "react";
-import { Formik, Field, Form } from "formik";
+import { Formik } from "formik";
+import * as Yup from "yup";
 import { navigate } from "@reach/router";
+import LoginForm from "../components/LoginForm";
 
 function Login() {
   const handleSubmit = values => {
@@ -32,28 +34,29 @@ function Login() {
     login();
   };
 
-  return (
-    <div>
-      <h2>Log In</h2>
-      <Formik
-        initialValues={{
-          type: "users",
-          attributes: {
-            email: "",
-            password: ""
-          }
-        }}
-        onSubmit={handleSubmit}
-        render={() => (
-          <Form>
-            <Field type="text" name="attributes.email" />
-            <Field type="text" name="attributes.password" />
+  const validationSchema = Yup.object({
+    email: Yup.string()
+              .email("Invalid email")
+              .required("Email is required"),
+    password: Yup.string()
+                  .min(6, "Password must contain at least 6 characters")
+                  .required("Password is required")
+  });
 
-            <button type="submit">Log in</button>
-          </Form>
-        )}
-      />
-    </div>
+  const values = {
+    email: "",
+    password: ""
+  };
+
+  return (
+    <React.Fragment>
+      <Formik
+        initialValues={values}
+        onSubmit={handleSubmit}
+        validationSchema={validationSchema}>
+        {props => <LoginForm {...props} />}
+      </Formik>
+    </React.Fragment>
   );
 }
 
