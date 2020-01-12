@@ -3,6 +3,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { navigate } from "@reach/router";
 import LoginForm from "./LoginForm";
+import { Paper } from "@material-ui/core";
 
 function Login() {
   const handleSubmit = values => {
@@ -49,14 +50,16 @@ function Login() {
   };
 
   return (
-    <React.Fragment>
-      <Formik
-        initialValues={values}
-        onSubmit={handleSubmit}
-        validationSchema={validationSchema}>
-        {props => <LoginForm {...props} />}
-      </Formik>
-    </React.Fragment>
+    <div className="form-container">
+      <Paper className="form">
+        <Formik
+          initialValues={values}
+          onSubmit={handleSubmit}
+          validationSchema={validationSchema}>
+          {props => <LoginForm {...props} />}
+        </Formik>
+      </Paper>
+    </div>
   );
 }
 

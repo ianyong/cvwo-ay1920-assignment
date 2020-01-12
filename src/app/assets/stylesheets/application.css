@@ -27,3 +27,22 @@ body {
     min-width: 100%;
     min-height: 100%;
 }
+
+div.form-container {
+    /* Center */
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+
+    height: 50vh;
+    width: 50vw;
+}
+
+.form {
+    /* Orientation of elements */
+    display: flex;
+    flex-direction: column;
+
+    height: 100%;
+}
