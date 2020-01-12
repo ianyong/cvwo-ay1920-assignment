@@ -3,6 +3,11 @@ class ApiController < ActionController::API
   
   before_action :authenticate_request
   attr_reader :current_user
+
+  # For access in resource classes
+  def context
+    {current_user: current_user}
+  end
   
   include ExceptionHandler
 
