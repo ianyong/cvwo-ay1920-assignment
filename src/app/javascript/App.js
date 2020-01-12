@@ -1,13 +1,13 @@
 import React from "react";
 import { Router } from "@reach/router";
-import TaskList from "./pages/TaskList";
+import TaskListPage from "./pages/TaskListPage";
 import AddTask from "./pages/AddTask";
 import LoginPage from "./pages/LoginPage";
 
 function App() {
   return (
     <Router>
-      <TaskList path="/" />
+      <TaskListPage path="/" />
       <AddTask path="/add" />
       <LoginPage path="/login" />
     </Router>

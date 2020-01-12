@@ -17,8 +17,8 @@ function Login() {
           "X-CSRF-Token": csrfToken
         },
         body: JSON.stringify({
-          email: values.attributes.email,
-          password: values.attributes.password
+          email: values.email,
+          password: values.password
         })
       })
       .then(resp => resp.json())

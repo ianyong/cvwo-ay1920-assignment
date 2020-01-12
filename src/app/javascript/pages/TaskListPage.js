@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { navigate } from "@reach/router";
 
-function TaskList() {
+function TaskListPage() {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
@@ -27,4 +27,4 @@ function TaskList() {
   return tasks.map(task => <div>{task.attributes.name}</div>);
 }
 
-export default TaskList;
+export default TaskListPage;
