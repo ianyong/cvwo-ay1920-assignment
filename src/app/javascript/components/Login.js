@@ -2,7 +2,7 @@ import React from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { navigate } from "@reach/router";
-import LoginForm from "../components/LoginForm";
+import LoginForm from "./LoginForm";
 
 function Login() {
   const handleSubmit = values => {
