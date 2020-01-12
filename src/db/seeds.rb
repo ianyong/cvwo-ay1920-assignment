@@ -7,18 +7,21 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 Task.create([
   {
+    user_id: "1",
     name: "Task 1",
     description: "This is a description.",
     due_date: "18/03/2020",
     is_completed: false
   },
   {
+    user_id: "1",
     name: "Task 2",
     description: "lorem ipsum",
     due_date: "01/01/2020",
     is_completed: true
   },
   {
+    user_id: "1",
     name: "Task 3",
     description: "The quick brown fox jumped over the fence.",
     due_date: "28/02/2020",
