@@ -45,7 +45,7 @@ class TaskList extends React.Component {
 
   render() {
     return (
-      <Paper>
+      <Paper className="list">
         {this.state.tasks.map((task, index) => {
           return (
             <TaskListItem
