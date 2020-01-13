@@ -14,7 +14,14 @@
  *= require_self
  */
 
+#root {
+    /* Force root div to take up the full viewport */
+    min-width: 100vw;
+    min-height: 100vh;
+}
+
 body {
+    /* Remove margin */
     margin: 0;
 }
 
@@ -47,10 +54,14 @@ div.form-container {
     height: 100%;
 }
 
+.list {
+    padding: 50dp;
+}
+
 li.done {
 
 }
 
 li.not-done {
-    
+
 }

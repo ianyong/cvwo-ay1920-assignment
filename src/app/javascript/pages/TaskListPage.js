@@ -4,7 +4,7 @@ import TaskList from "../components/TaskList";
 function TaskListPage() {
   return (
     <React.Fragment>
-      <TaskList />
+      <TaskList className="list" />
     </React.Fragment>
   );
 }

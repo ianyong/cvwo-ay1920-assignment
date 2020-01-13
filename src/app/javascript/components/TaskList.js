@@ -1,6 +1,7 @@
 import React from "react";
 import TaskListItem from "./TaskListItem";
 import { navigate } from "@reach/router";
+import { Paper } from "@material-ui/core";
 
 class TaskList extends React.Component {
   constructor(props) {
@@ -44,17 +45,18 @@ class TaskList extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
+      <Paper>
         {this.state.tasks.map((task, index) => {
           return (
             <TaskListItem
+              key={index}
               task={task}
               index={index}
               removeTask={this.props.removeTask}
               markAsDone={this.props.markAsDone} />
           );
         })}
-      </React.Fragment>
+      </Paper>
     );
   }
 }
