@@ -1,6 +1,9 @@
 import React from "react";
+import clsx from "clsx";
+import { makeStyles } from "@material-ui/core";
 import AppBar from "./AppBar";
 import Drawer from "./Drawer";
+import TaskList from "./TaskList";
 
 function PersistentDrawer() {
   const [open, setOpen] = React.useState(false);
@@ -14,8 +17,37 @@ function PersistentDrawer() {
     setOpen(false);
   };
 
+  const styles = makeStyles(theme => ({
+    root: {
+      display: 'flex',
+    },
+    drawerHeader: {
+      display: 'flex',
+      alignItems: 'center',
+      padding: theme.spacing(0, 1),
+      ...theme.mixins.toolbar,
+      justifyContent: 'flex-end',
+    },
+    content: {
+      flexGrow: 1,
+      padding: theme.spacing(3),
+      transition: theme.transitions.create('margin', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+      marginLeft: -drawerWidth,
+    },
+    contentShift: {
+      transition: theme.transitions.create('margin', {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+      marginLeft: 0,
+    }
+  }))();
+
   return (
-    <React.Fragment>
+    <div className={styles.root}>
       <AppBar
         drawerWidth={drawerWidth}
         open={open}
@@ -24,7 +56,14 @@ function PersistentDrawer() {
         drawerWidth={drawerWidth}
         open={open}
         handleDrawerClose={handleDrawerClose} />
-    </React.Fragment>
+      <main
+        className={clsx(styles.content, {
+          [styles.contentShift]: open,
+        })}>
+        <div className={styles.drawerHeader} />
+        <TaskList />
+      </main>
+    </div>
   );
 }
 
