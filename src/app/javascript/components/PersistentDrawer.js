@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core";
 import AppBar from "./AppBar";
 import Drawer from "./Drawer";
 import TaskList from "./TaskList";
+import Fab from "./Fab";
 
 function PersistentDrawer() {
   const [open, setOpen] = React.useState(false);
@@ -62,6 +63,7 @@ function PersistentDrawer() {
         })}>
         <div className={styles.drawerHeader} />
         <TaskList />
+        <Fab />
       </main>
     </div>
   );
