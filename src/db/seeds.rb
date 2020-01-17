@@ -14,7 +14,7 @@ Task.create([
     is_completed: false
   },
   {
-    user_id: "1",
+    user_id: "2",
     name: "Task 2",
     description: "lorem ipsum",
     due_date: "01/01/2020",
