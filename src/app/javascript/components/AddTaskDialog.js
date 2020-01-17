@@ -82,7 +82,7 @@ class AddTaskDialog extends React.Component {
           <Formik
             initialValues={this.values}
             validationSchema={this.validationSchema}
-            ref={this.formRef}>
+            validateOnMount="true">
             {props => <AddTaskForm
                         {...props}
                         enableButton={this.enableButton}
