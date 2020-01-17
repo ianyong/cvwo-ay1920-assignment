@@ -34,11 +34,24 @@ const AddTaskForm = props => {
         name="name"
         helperText={touched.name ? errors.name : ""}
         error={touched.name && Boolean(errors.name)}
-        label="Task name"
+        label="Name"
         value={name}
         onChange={change.bind(null, "name")}
         fullWidth
         variant="outlined" />
+      <TextField
+        className="textfield"
+        id="description"
+        name="description"
+        heleprText={touched.description ? errors.description : ""}
+        error={touched.description && Boolean(errors.description)}
+        label="Description"
+        value={description}
+        onChange={change.bind(null, "description")}
+        fullWidth
+        variant="outlined"
+        multiline
+        rows="5" />
     </form>
   );
 }

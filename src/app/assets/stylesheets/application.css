@@ -67,3 +67,7 @@ li.done {
 li.not-done {
 
 }
+
+.MuiTextField-root.textfield {
+    margin-top: 20px;
+}
