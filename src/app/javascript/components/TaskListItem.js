@@ -7,6 +7,7 @@ class TaskListItem extends React.Component {
     super(props);
     this.onClickClose = this.onClickClose.bind(this);
     this.onClickDone = this.onClickDone.bind(this);
+    this.viewDetails = this.viewDetails.bind(this);
     this.closeDialog = this.closeDialog.bind(this);
     this.state = {
       dialogOpen: false
@@ -39,7 +40,7 @@ class TaskListItem extends React.Component {
       <React.Fragment>
         <ListItem
           button
-          onClick={this.viewDetails.bind(this)}>
+          onClick={this.viewDetails}>
           <div className="taskClass">
             <h2>{this.props.task.attributes.name}</h2>
           </div>

@@ -31,7 +31,7 @@ class TaskList extends React.Component {
         }
       })
       const { data } = await response.json();
-      if(response.status === 500) {
+      if (response.status === 500) {
         // Not logged in
         navigate("/login")
       } else {

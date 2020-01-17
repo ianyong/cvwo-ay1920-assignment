@@ -23,7 +23,7 @@ function Login() {
       })
       .then(resp => resp.json())
       .then(data => {
-        if(data.message) {
+        if (data.message) {
           // Successfully logged in
           localStorage.setItem("token", data.access_token);
           navigate("/")
