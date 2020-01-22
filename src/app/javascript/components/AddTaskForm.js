@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import { TextField } from "@material-ui/core";
+import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns"
 
 const AddTaskForm = props => {
   const {
@@ -18,10 +20,16 @@ const AddTaskForm = props => {
     disableButton
   } = props;
 
+  const [selectedDate, setSelectedDate] = React.useState(props.values.due_dute);
+
   const change = (name, e) => {
     e.persist();
     handleChange(e);
     setFieldTouched(name, true, false);
+  };
+
+  const handleDateChange = date => {
+    setSelectedDate(date);
   };
 
   // Set button state based off validation
@@ -43,7 +51,7 @@ const AddTaskForm = props => {
         className="textfield"
         id="description"
         name="description"
-        heleprText={touched.description ? errors.description : ""}
+        helperText={touched.description ? errors.description : ""}
         error={touched.description && Boolean(errors.description)}
         label="Description"
         value={description}
@@ -52,6 +60,16 @@ const AddTaskForm = props => {
         variant="outlined"
         multiline
         rows="5" />
+      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <KeyboardDatePicker
+          id="due_date"
+          name="due_date"
+          helperText={touched.due_date ? errors.due_date : ""}
+          error={touched.due_date && Boolean(errors.due_date)}
+          label="Due Date"
+          value={selectedDate}
+          onChange={handleDateChange} />
+      </MuiPickersUtilsProvider>
     </form>
   );
 }

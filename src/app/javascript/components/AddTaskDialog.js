@@ -65,7 +65,7 @@ class AddTaskDialog extends React.Component {
   values = {
     name: "",
     description: "",
-    due_date: ""
+    due_date: new Date()
   };
 
   render() {
