@@ -17,7 +17,8 @@ const AddTaskForm = props => {
     isValid,
     setFieldTouched,
     enableButton,
-    disableButton
+    disableButton,
+    updateValues
   } = props;
 
   const [selectedDate, setSelectedDate] = React.useState(props.values.due_dute);
@@ -30,10 +31,14 @@ const AddTaskForm = props => {
 
   const handleDateChange = date => {
     setSelectedDate(date);
+    props.values.due_date = date;
   };
 
   // Set button state based off validation
   useEffect(() => isValid ? enableButton() : disableButton(), [isValid]);
+
+  // Update values in parent
+  useEffect(() => updateValues(props.values), [props.values]);
 
   return(
     <form>

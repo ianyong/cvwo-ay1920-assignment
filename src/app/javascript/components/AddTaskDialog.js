@@ -9,6 +9,7 @@ class AddTaskDialog extends React.Component {
     super(props);
     this.enableButton = this.enableButton.bind(this);
     this.disableButton = this.disableButton.bind(this);
+    this.updateValues = this.updateValues.bind(this);
     this.state = {
       buttonEnabled: false
     };
@@ -26,7 +27,7 @@ class AddTaskDialog extends React.Component {
     });
   }
 
-  handleSubmit = values => {
+  handleSubmit = () => {
     const addTask = async () => {
       let token = localStorage.getItem("token");
       const response = await fetch("/api/tasks", {
@@ -35,10 +36,10 @@ class AddTaskDialog extends React.Component {
           "Content-Type": "application/vnd.api+json",
           "Authorization": token
         },
-        params: JSON.stringify({
-          name: values.name,
-          description: values.description,
-          due_date: values.due_date
+        body: JSON.stringify({
+          name: this.values.name,
+          description: this.values.description,
+          due_date: this.values.due_date
         })
       })
       const { data } = await response.json();
@@ -62,10 +63,14 @@ class AddTaskDialog extends React.Component {
     due_date: Yup.date()
   });
 
-  values = {
+  initialValues = {
     name: "",
     description: "",
     due_date: new Date()
+  };
+
+  updateValues = values => {
+    this.values = values;
   };
 
   render() {
@@ -80,13 +85,14 @@ class AddTaskDialog extends React.Component {
         </DialogTitle>
         <DialogContent>
           <Formik
-            initialValues={this.values}
+            initialValues={this.initialValues}
             validationSchema={this.validationSchema}
             validateOnMount="true">
             {props => <AddTaskForm
                         {...props}
                         enableButton={this.enableButton}
-                        disableButton={this.disableButton} />}
+                        disableButton={this.disableButton}
+                        updateValues={this.updateValues} />}
           </Formik>
         </DialogContent>
         <DialogActions>
