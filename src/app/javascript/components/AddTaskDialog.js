@@ -33,9 +33,9 @@ class AddTaskDialog extends React.Component {
         method: "POST",
         headers: {
           "Content-Type": "application/vnd.api+json",
-          Authorization: token
+          "Authorization": token
         },
-        body: JSON.stringify({
+        params: JSON.stringify({
           name: values.name,
           description: values.description,
           due_date: values.due_date

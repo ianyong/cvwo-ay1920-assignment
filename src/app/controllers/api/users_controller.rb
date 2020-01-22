@@ -27,7 +27,7 @@ class Api::UsersController < ApiController
         message: 'Login Successful'
       }
     else
-      render json: { error: command.errors }, status: :unauthorized
+      render json: { error: command.errors }, status: :four_zero_one
     end
    end
 
