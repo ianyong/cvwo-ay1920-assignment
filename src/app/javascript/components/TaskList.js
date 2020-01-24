@@ -24,10 +24,14 @@ class TaskList extends React.Component {
   componentDidMount() {
     const requestTasks = async () => {
       let token = localStorage.getItem("token");
-      const response = await fetch("/api/tasks", {
+      let params = "";
+      const response = await fetch("/api/tasks" + params, {
         method: "GET",
         headers: {
           Authorization: token
+        },
+        params: {
+          sort: "due_date"
         }
       })
       const { data } = await response.json();
