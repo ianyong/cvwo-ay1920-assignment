@@ -1,6 +1,8 @@
 import React from "react";
-import { Drawer as MaterialDrawer, makeStyles, IconButton, Divider } from "@material-ui/core";
+import { navigate } from "@reach/router";
+import { Drawer as MaterialDrawer, makeStyles, IconButton, Divider, List, ListItem, ListItemText, ListItemIcon } from "@material-ui/core";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 const Drawer = props => {
   const {
@@ -26,6 +28,11 @@ const Drawer = props => {
     }
   }))();
 
+  const logout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
+
   return (
     <MaterialDrawer
       variant="persistent"
@@ -43,6 +50,17 @@ const Drawer = props => {
         </IconButton>
       </div>
       <Divider />
+      <List>
+        <ListItem
+          button
+          onClick={logout}>
+          <ListItemIcon>
+            <ExitToAppIcon />
+          </ListItemIcon>
+          <ListItemText
+            primary="Log out" />
+        </ListItem>
+      </List>
     </MaterialDrawer>
   );
 }

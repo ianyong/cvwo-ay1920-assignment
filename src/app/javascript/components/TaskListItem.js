@@ -43,7 +43,7 @@ class TaskListItem extends React.Component {
         <ListItem
           button
           onClick={this.viewDetails}>
-          <div className="taskClass">
+          <div>
             <h2>{this.props.task.attributes.name}</h2>
             <Chip
               icon={<DateRangeIcon />}
