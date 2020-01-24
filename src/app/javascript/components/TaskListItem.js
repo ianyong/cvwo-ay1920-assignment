@@ -47,7 +47,7 @@ class TaskListItem extends React.Component {
             <h2>{this.props.task.attributes.name}</h2>
             <Chip
               icon={<DateRangeIcon />}
-              label={moment(this.props.task.attributes.due_date).format('D MMMM YYYY')}
+              label={moment(this.props.task.attributes['due-date']).format('D MMMM YYYY')}
               variant="outlined" />
           </div>
         </ListItem>
