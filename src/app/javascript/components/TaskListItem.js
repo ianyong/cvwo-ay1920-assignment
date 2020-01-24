@@ -1,6 +1,8 @@
 import React from "react";
-import { ListItem } from "@material-ui/core";
+import { ListItem, Chip } from "@material-ui/core";
 import TaskDetailsDialog from "./TaskDetailsDialog";
+import DateRangeIcon from '@material-ui/icons/DateRange';
+import moment from "moment";
 
 class TaskListItem extends React.Component {
   constructor(props) {
@@ -43,6 +45,10 @@ class TaskListItem extends React.Component {
           onClick={this.viewDetails}>
           <div className="taskClass">
             <h2>{this.props.task.attributes.name}</h2>
+            <Chip
+              icon={<DateRangeIcon />}
+              label={moment(this.props.task.attributes.due_date).format('D MMMM YYYY')}
+              variant="outlined" />
           </div>
         </ListItem>
         <TaskDetailsDialog
