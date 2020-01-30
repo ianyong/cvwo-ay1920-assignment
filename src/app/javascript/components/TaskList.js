@@ -31,7 +31,9 @@ class TaskList extends React.Component {
         params += "&filter[until_date]=" + moment(new Date()).format('YYYY-MM-DD');
         break;
       case 1:
-        params += "&filter[until_date]=" + moment(new Date(new Date().getDate() + 7).format('YYYY-MM-DD'));
+        let date = new Date();
+        date.setDate(date.getDate() + 7);
+        params += "&filter[until_date]=" + moment(date).format('YYYY-MM-DD');
         break;
       case 2:
         break;
