@@ -1,6 +1,6 @@
 import React from "react";
 import { navigate } from "@reach/router";
-import { Drawer as MaterialDrawer, makeStyles, IconButton, Divider, List, ListItem, ListItemText, ListItemIcon } from "@material-ui/core";
+import { Drawer as MaterialDrawer, makeStyles, IconButton, Divider, List, ListItem, ListItemText, ListItemIcon, FormControlLabel, Switch } from "@material-ui/core";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import TodayIcon from '@material-ui/icons/Today';
@@ -92,6 +92,14 @@ const Drawer = props => {
             primary="All" />
         </ListItem>
       </List>
+      <Divider />
+        <List>
+          <FormControlLabel
+            value="viewCompletedTasks"
+            control={<Switch color="primary" />}
+            label="View completed tasks"
+            labelPlacement="start" />
+        </List>
       <Divider />
       <List>
         <ListItem
