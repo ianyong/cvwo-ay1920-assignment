@@ -8,7 +8,7 @@ function Fab() {
 
   const styles = makeStyles(theme => ({
     fab: {
-      position: 'absolute',
+      position: 'fixed',
       bottom: theme.spacing(5),
       right: theme.spacing(5),
     }
