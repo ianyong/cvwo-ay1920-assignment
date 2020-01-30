@@ -13,7 +13,9 @@ const Drawer = props => {
     drawerWidth,
     handleDrawerClose,
     dateRange,
-    setDateRange
+    setDateRange,
+    showCompleted,
+    setShowCompleted
   } = props;
 
   const styles = makeStyles(theme => ({
@@ -41,6 +43,12 @@ const Drawer = props => {
   const handleDateRangeSelection = (event, index) => {
     localStorage.setItem("date_range_filter", index);
     setDateRange(index);
+  };
+
+  const toggleShowCompletedTasks = (event) => {
+    let value = showCompleted === 0 ? 1 :0;
+    localStorage.setItem("show_completed", value);
+    setShowCompleted(value);
   };
 
   return (
@@ -95,7 +103,8 @@ const Drawer = props => {
       <Divider />
         <List>
           <FormControlLabel
-            value="viewCompletedTasks"
+            checked={showCompleted === 0 ? false : true}
+            onChange={e => toggleShowCompletedTasks(e)}
             control={<Switch color="primary" />}
             label="View completed tasks"
             labelPlacement="start" />

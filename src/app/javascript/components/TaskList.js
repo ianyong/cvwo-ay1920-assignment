@@ -38,6 +38,14 @@ class TaskList extends React.Component {
       case 2:
         break;
     }
+
+    switch (this.props.showCompleted) {
+      case 0:
+        params += "&filter[is_completed]=f";
+        break;
+      case 1:
+        break;
+    }
     
     const response = await fetch("/api/tasks" + params, {
       method: "GET",
@@ -62,7 +70,7 @@ class TaskList extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.dateRange != prevProps.dateRange) {
+    if (this.props.dateRange != prevProps.dateRange || this.props.showCompleted != prevProps.showCompleted) {
       this.requestTasks();
     }
   }

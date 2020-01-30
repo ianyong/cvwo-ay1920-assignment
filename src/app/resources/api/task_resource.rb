@@ -9,4 +9,6 @@ class Api::TaskResource < JSONAPI::Resource
   filter :until_date, apply: ->(records, value, _options) {
     records.where('due_date <= ?', value[0]);
   }
+
+  filter :is_completed
 end

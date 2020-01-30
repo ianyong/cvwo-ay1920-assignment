@@ -10,6 +10,8 @@ function PersistentDrawer() {
   const [open, setOpen] = React.useState(false);
   const [dateRange, setDateRange] = React.useState(localStorage.getItem("date_range_filter") === null
       ? 2 : parseInt(localStorage.getItem("date_range_filter")));
+  const [showCompleted, setShowCompleted] = React.useState(localStorage.getItem("show_completed") === null
+      ? 0 : parseInt(localStorage.getItem("show_completed")));
   const drawerWidth = 240;
 
   const handleDrawerOpen = () => {
@@ -60,14 +62,17 @@ function PersistentDrawer() {
         open={open}
         handleDrawerClose={handleDrawerClose}
         dateRange={dateRange}
-        setDateRange={setDateRange} />
+        setDateRange={setDateRange}
+        showCompleted={showCompleted}
+        setShowCompleted={setShowCompleted} />
       <main
         className={clsx(styles.content, {
           [styles.contentShift]: open,
         })}>
         <div className={styles.drawerHeader} />
         <TaskList
-          dateRange={dateRange} />
+          dateRange={dateRange}
+          showCompleted={showCompleted} />
         <Fab />
       </main>
     </div>
