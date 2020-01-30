@@ -11,7 +11,9 @@ const Drawer = props => {
   const {
     open,
     drawerWidth,
-    handleDrawerClose
+    handleDrawerClose,
+    dateRange,
+    setDateRange
   } = props;
 
   const styles = makeStyles(theme => ({
@@ -31,8 +33,6 @@ const Drawer = props => {
     }
   }))();
 
-  const [selectedIndex, setSelectedIndex] = React.useState(localStorage.getItem("date_range_filter") === null ? 2 : parseInt(localStorage.getItem("date_range_filter")));
-
   const logout = () => {
     localStorage.removeItem("token");
     navigate("/login");
@@ -40,7 +40,7 @@ const Drawer = props => {
 
   const handleDateRangeSelection = (event, index) => {
     localStorage.setItem("date_range_filter", index);
-    setSelectedIndex(index);
+    setDateRange(index);
   };
 
   return (
@@ -63,7 +63,7 @@ const Drawer = props => {
       <List>
         <ListItem
           button
-          selected={selectedIndex === 0}
+          selected={dateRange === 0}
           onClick={e => handleDateRangeSelection(e, 0)}>
           <ListItemIcon>
             <TodayIcon />
@@ -73,7 +73,7 @@ const Drawer = props => {
         </ListItem>
         <ListItem
           button
-          selected={selectedIndex === 1}
+          selected={dateRange === 1}
           onClick={e => handleDateRangeSelection(e, 1)}>
           <ListItemIcon>
             <DateRangeIcon />
@@ -83,7 +83,7 @@ const Drawer = props => {
         </ListItem>
         <ListItem
           button
-          selected={selectedIndex === 2}
+          selected={dateRange === 2}
           onClick={e => handleDateRangeSelection(e, 2)}>
           <ListItemIcon>
             <EventNoteIcon />

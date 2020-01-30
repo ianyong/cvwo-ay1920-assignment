@@ -8,6 +8,8 @@ import Fab from "./Fab";
 
 function PersistentDrawer() {
   const [open, setOpen] = React.useState(false);
+  const [dateRange, setDateRange] = React.useState(localStorage.getItem("date_range_filter") === null
+      ? 2 : parseInt(localStorage.getItem("date_range_filter")));
   const drawerWidth = 240;
 
   const handleDrawerOpen = () => {
@@ -56,13 +58,16 @@ function PersistentDrawer() {
       <Drawer
         drawerWidth={drawerWidth}
         open={open}
-        handleDrawerClose={handleDrawerClose} />
+        handleDrawerClose={handleDrawerClose}
+        dateRange={dateRange}
+        setDateRange={setDateRange} />
       <main
         className={clsx(styles.content, {
           [styles.contentShift]: open,
         })}>
         <div className={styles.drawerHeader} />
-        <TaskList />
+        <TaskList
+          dateRange={dateRange} />
         <Fab />
       </main>
     </div>
