@@ -49,7 +49,7 @@ class AddUpdateTaskDialog extends React.Component {
       } else if (response.status === 200) {
         // Successfully added task
         this.props.onClose();
-        this.props.refreshTaskList(0);
+        this.props.refreshTaskList();
       } else {
         // Failed to add task
       }
@@ -79,7 +79,7 @@ class AddUpdateTaskDialog extends React.Component {
       } else if (response.status === 200) {
         // Successfully updated task
         this.props.onClose();
-        this.props.refreshTaskList(0);
+        this.props.refreshTaskList();
       } else {
         // Failed to update task
       }

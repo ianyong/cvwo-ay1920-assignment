@@ -87,7 +87,8 @@ class TaskList extends React.Component {
               task={task}
               index={index}
               removeTask={this.props.removeTask}
-              markAsDone={this.props.markAsDone} />
+              markAsDone={this.props.markAsDone}
+              refreshTaskList={this.props.refreshTaskList} />
           );
         })}
       </Paper>

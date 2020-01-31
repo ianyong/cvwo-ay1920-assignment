@@ -78,7 +78,8 @@ function PersistentDrawer() {
         <TaskList
           dateRange={dateRange}
           showCompleted={showCompleted}
-          update={update} />
+          update={update}
+          refreshTaskList={refreshTaskList} />
         <Fab
           refreshTaskList={refreshTaskList} />
       </main>

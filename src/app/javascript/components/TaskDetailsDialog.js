@@ -57,7 +57,8 @@ class TaskDetailsDialog extends React.Component {
         <AddUpdateTaskDialog
           task={this.props.task}
           open={this.state.dialogOpen}
-          onClose={this.closeDialog} />
+          onClose={this.closeDialog}
+          refreshTaskList={this.props.refreshTaskList} />
       </React.Fragment>
     );
   }
