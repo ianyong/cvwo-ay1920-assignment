@@ -11,7 +11,7 @@ class AddUpdateTaskDialog extends React.Component {
     this.disableButton = this.disableButton.bind(this);
     this.updateValues = this.updateValues.bind(this);
     this.state = {
-      buttonEnabled: false
+      buttonEnabled: false,
     };
   }
 

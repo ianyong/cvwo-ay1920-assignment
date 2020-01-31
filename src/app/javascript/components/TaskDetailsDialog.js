@@ -55,6 +55,7 @@ class TaskDetailsDialog extends React.Component {
           </DialogActions>
         </Dialog>
         <AddUpdateTaskDialog
+          key={this.state.dialogOpen} // Force update child component
           task={this.props.task}
           open={this.state.dialogOpen}
           onClose={this.closeDialog}
