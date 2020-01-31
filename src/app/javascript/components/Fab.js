@@ -1,7 +1,7 @@
 import React from "react";
 import AddIcon from "@material-ui/icons/Add";
 import { makeStyles, Fab as MaterialFab } from "@material-ui/core";
-import AddTaskDialog from "./AddTaskDialog";
+import AddUpdateTaskDialog from "./AddUpdateTaskDialog";
 
 function Fab() {
   const [dialogOpen, setDialogOpen] = React.useState(false);
@@ -30,7 +30,7 @@ function Fab() {
         onClick={openDialog}>
         <AddIcon />
       </MaterialFab>
-      <AddTaskDialog
+      <AddUpdateTaskDialog
         open={dialogOpen}
         onClose={closeDialog} />
     </React.Fragment>

@@ -3,7 +3,7 @@ import { TextField } from "@material-ui/core";
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns"
 
-const AddTaskForm = props => {
+const AddUpdateTaskForm = props => {
   const {
     values: {
       name,
@@ -79,4 +79,4 @@ const AddTaskForm = props => {
   );
 }
 
-export default AddTaskForm;
+export default AddUpdateTaskForm;

@@ -10,6 +10,16 @@ class Api::TasksController < ApiController
     end
   end
 
+  def update
+    @task = Task.find(params[:id])
+    @task.update(task_params)
+    if @task.save
+      render json: @task, status: 200
+    else
+      render json: { error: 'Unable to update task' }, status: 400
+    end
+  end
+
   private
 
   def task_params

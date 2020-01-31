@@ -2,9 +2,9 @@ import React from  "react";
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@material-ui/core";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import AddTaskForm from "./AddTaskForm";
+import AddUpdateTaskForm from "./AddUpdateTaskForm";
 
-class AddTaskDialog extends React.Component {
+class AddUpdateTaskDialog extends React.Component {
   constructor(props) {
     super(props);
     this.enableButton = this.enableButton.bind(this);
@@ -56,6 +56,35 @@ class AddTaskDialog extends React.Component {
     addTask();
   };
 
+  handleUpdate = () => {
+    const updateTask = async () => {
+      let token = localStorage.getItem("token");
+      const response = await fetch("/api/tasks/" + this.props.task.attributes.id, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/vnd.api+json",
+          "Authorization": token
+        },
+        body: JSON.stringify({
+          name: this.values.name,
+          description: this.values.description,
+          due_date: this.values.due_date
+        })
+      })
+      const { data } = await response.json();
+      if (response.status === 500) {
+        // Not logged in
+        navigate("/login")
+      } else if (response.status === 200) {
+        // Successfully updated task
+        this.props.onClose();
+      } else {
+        // Failed to update task
+      }
+    };
+    updateTask();
+  };
+
   validationSchema = Yup.object({
     name: Yup.string()
               .required("Task name is required"),
@@ -81,14 +110,14 @@ class AddTaskDialog extends React.Component {
         maxWidth="md"
         scroll="paper">
         <DialogTitle>
-          Add task
+          {this.props.task ? "Edit task" : "Add task"}
         </DialogTitle>
         <DialogContent>
           <Formik
             initialValues={this.initialValues}
             validationSchema={this.validationSchema}
             validateOnMount="true">
-            {props => <AddTaskForm
+            {props => <AddUpdateTaskForm
                         {...props}
                         enableButton={this.enableButton}
                         disableButton={this.disableButton}
@@ -103,10 +132,10 @@ class AddTaskDialog extends React.Component {
           </Button>
           <Button
             autoFocus
-            onClick={this.handleSubmit}
+            onClick={this.props.task ? this.handleUpdate : this.handleSubmit}
             color="primary"
             disabled={!this.state.buttonEnabled}>
-            Add
+            {this.props.task ? "Update" : "Add"}
           </Button>
         </DialogActions>
       </Dialog>
@@ -114,4 +143,4 @@ class AddTaskDialog extends React.Component {
   }
 }
 
-export default AddTaskDialog;
+export default AddUpdateTaskDialog;
