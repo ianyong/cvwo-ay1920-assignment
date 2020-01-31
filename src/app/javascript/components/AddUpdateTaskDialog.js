@@ -92,7 +92,11 @@ class AddUpdateTaskDialog extends React.Component {
     due_date: Yup.date()
   });
 
-  initialValues = {
+  initialValues = this.props.task ? {
+    name: this.props.task.attributes.name,
+    description: this.props.task.attributes.description,
+    due_date: this.props.task.attributes['due-date']
+  } : {
     name: "",
     description: "",
     due_date: new Date()

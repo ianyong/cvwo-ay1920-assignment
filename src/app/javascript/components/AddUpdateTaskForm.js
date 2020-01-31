@@ -21,7 +21,7 @@ const AddUpdateTaskForm = props => {
     updateValues
   } = props;
 
-  const [selectedDate, setSelectedDate] = React.useState(props.values.due_dute);
+  const [selectedDate, setSelectedDate] = React.useState(due_date);
 
   const change = (name, e) => {
     e.persist();
