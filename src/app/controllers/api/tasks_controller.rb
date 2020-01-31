@@ -26,7 +26,8 @@ class Api::TasksController < ApiController
     params.permit(
       :name,
       :description,
-      :due_date
+      :due_date,
+      :tag_list
     )
   end
 end

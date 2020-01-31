@@ -5,10 +5,7 @@ Rails.application.routes.draw do
   namespace :api do
     post 'auth/register', to: 'users#register'
     post 'auth/login', to: 'users#login'
-    jsonapi_resources :tasks do
-      jsonapi_related_resources :tags
-      jsonapi_related_resources :taggings
-    end
+    jsonapi_resources :tasks
   end
   get "*path", to: "home#index", constraints: { format: "html" }
 end

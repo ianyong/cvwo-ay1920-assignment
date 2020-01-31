@@ -37,28 +37,14 @@ class TaskListItem extends React.Component {
     });
   }
 
-  requestTags = async () => {
-    let token = localStorage.getItem("token");
-    const response = await fetch(this.props.task.relationships.tags.links.related, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/vnd.api+json",
-        "Authorization": token
-      }
-    })
-    const { data } = await response.json();
-    if (response.status === 500) {
-      // Not logged in
-      navigate("/login")
-    } else {
-      this.setState({
-        tags: data
-      });
-    }
-  };
-
   componentDidMount() {
-    this.requestTags();
+    let tags = this.props.task.attributes['tag-list'].split("; ");
+    if (tags[0] === "") {
+      tags = []
+    }
+    this.setState({
+      tags: tags
+    });
   }
 
   render() {
@@ -79,7 +65,7 @@ class TaskListItem extends React.Component {
                 <Chip
                   className="tag"
                   key={index}
-                  label={tag.attributes.name} />
+                  label={tag} />
               );
             })}
           </div>
