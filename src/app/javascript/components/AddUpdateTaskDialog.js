@@ -59,7 +59,7 @@ class AddUpdateTaskDialog extends React.Component {
   handleUpdate = () => {
     const updateTask = async () => {
       let token = localStorage.getItem("token");
-      const response = await fetch("/api/tasks/" + this.props.task.attributes.id, {
+      const response = await fetch("/api/tasks/" + this.props.task.id, {
         method: "PUT",
         headers: {
           "Content-Type": "application/vnd.api+json",
