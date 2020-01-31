@@ -73,6 +73,6 @@ li.not-done {
     margin-bottom: 20px;
 }
 
-.date-picker {
-
+.MuiChip-root.tag {
+    margin-left: 5px;
 }
