@@ -70,7 +70,9 @@ class TaskList extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.dateRange != prevProps.dateRange || this.props.showCompleted != prevProps.showCompleted) {
+    if (this.props.dateRange != prevProps.dateRange
+        || this.props.showCompleted != prevProps.showCompleted
+        || this.props.update != prevProps.update) {
       this.requestTasks();
     }
   }

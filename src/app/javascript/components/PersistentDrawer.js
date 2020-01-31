@@ -12,6 +12,7 @@ function PersistentDrawer() {
       ? 2 : parseInt(localStorage.getItem("date_range_filter")));
   const [showCompleted, setShowCompleted] = React.useState(localStorage.getItem("show_completed") === null
       ? 0 : parseInt(localStorage.getItem("show_completed")));
+  const [update, setUpdate] = React.useState(true); // Dummy state for refreshing component
   const drawerWidth = 240;
 
   const handleDrawerOpen = () => {
@@ -21,6 +22,10 @@ function PersistentDrawer() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const refreshTaskList = () => {
+    setUpdate(!update);
+  }
 
   const styles = makeStyles(theme => ({
     root: {
@@ -72,8 +77,10 @@ function PersistentDrawer() {
         <div className={styles.drawerHeader} />
         <TaskList
           dateRange={dateRange}
-          showCompleted={showCompleted} />
-        <Fab />
+          showCompleted={showCompleted}
+          update={update} />
+        <Fab
+          refreshTaskList={refreshTaskList} />
       </main>
     </div>
   );

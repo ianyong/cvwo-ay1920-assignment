@@ -3,7 +3,7 @@ import AddIcon from "@material-ui/icons/Add";
 import { makeStyles, Fab as MaterialFab } from "@material-ui/core";
 import AddUpdateTaskDialog from "./AddUpdateTaskDialog";
 
-function Fab() {
+const Fab = props => {
   const [dialogOpen, setDialogOpen] = React.useState(false);
 
   const styles = makeStyles(theme => ({
@@ -32,7 +32,8 @@ function Fab() {
       </MaterialFab>
       <AddUpdateTaskDialog
         open={dialogOpen}
-        onClose={closeDialog} />
+        onClose={closeDialog}
+        refreshTaskList={props.refreshTaskList} />
     </React.Fragment>
   );
 }
