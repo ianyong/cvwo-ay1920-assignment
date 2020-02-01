@@ -82,7 +82,7 @@ const AddUpdateTaskForm = props => {
           className="full-width"
           multiple
           id="tags"
-          options={tags}
+          defaultValue={tags}
           freeSolo
           renderTags={(value, getTagProps) =>
             value.map((option, index) => (
