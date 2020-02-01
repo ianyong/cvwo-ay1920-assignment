@@ -73,6 +73,10 @@ div.form-container {
     padding-bottom: 8px;
 }
 
+.drawer-padding {
+    padding-right: 20px;
+}
+
 .MuiListItem-root.done,
 .MuiListItem-root.done:hover {
     opacity: 0.5;

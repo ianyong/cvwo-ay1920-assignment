@@ -12,5 +12,7 @@ class Api::TaskResource < JSONAPI::Resource
     records.where('due_date <= ?', value[0]);
   }
 
-  filter :is_completed
+  filter :remove_old, apply: ->(records, value, _options) {
+    records.where('is_completed = false or due_date > ?', Date.today);
+  }
 end

@@ -41,7 +41,7 @@ class TaskList extends React.Component {
 
     switch (this.props.showCompleted) {
       case 0:
-        params += "&filter[is_completed]=f";
+        params += "&filter[remove_old]";
         break;
       case 1:
         break;

@@ -103,10 +103,11 @@ const Drawer = props => {
       <Divider />
         <List>
           <FormControlLabel
+            className="drawer-padding"
             checked={showCompleted === 0 ? false : true}
             onChange={e => toggleShowCompletedTasks(e)}
             control={<Switch color="primary" />}
-            label="View completed tasks"
+            label="View all completed tasks"
             labelPlacement="start" />
         </List>
       <Divider />
