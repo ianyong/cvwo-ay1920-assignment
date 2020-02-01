@@ -72,6 +72,7 @@ class TaskListItem extends React.Component {
         </ListItem>
         <TaskDetailsDialog
           task={this.props.task}
+          tags={this.state.tags}
           open={this.state.dialogOpen}
           onClose={this.closeDialog}
           refreshTaskList={this.props.refreshTaskList} />

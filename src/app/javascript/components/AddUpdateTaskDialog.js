@@ -97,11 +97,13 @@ class AddUpdateTaskDialog extends React.Component {
   initialValues = this.props.task ? {
     name: this.props.task.attributes.name,
     description: this.props.task.attributes.description,
-    due_date: this.props.task.attributes['due-date']
+    due_date: this.props.task.attributes['due-date'],
+    tags: this.props.tags
   } : {
     name: "",
     description: "",
-    due_date: new Date()
+    due_date: new Date(),
+    tags: []
   };
 
   updateValues = values => {

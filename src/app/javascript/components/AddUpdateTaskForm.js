@@ -1,14 +1,16 @@
 import React, { useEffect } from "react";
-import { TextField } from "@material-ui/core";
+import { TextField, Chip } from "@material-ui/core";
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
-import DateFnsUtils from "@date-io/date-fns"
+import { Autocomplete } from "@material-ui/lab";
+import DateFnsUtils from "@date-io/date-fns";
 
 const AddUpdateTaskForm = props => {
   const {
     values: {
       name,
       description,
-      due_date
+      due_date,
+      tags
     },
     errors,
     touched,
@@ -65,16 +67,36 @@ const AddUpdateTaskForm = props => {
         variant="outlined"
         multiline
         rows="5" />
-      <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <KeyboardDatePicker
-          id="due_date"
-          name="due_date"
-          helperText={touched.due_date ? errors.due_date : ""}
-          error={touched.due_date && Boolean(errors.due_date)}
-          label="Due Date"
-          value={selectedDate}
-          onChange={handleDateChange} />
-      </MuiPickersUtilsProvider>
+      <div className="row">
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <KeyboardDatePicker
+            id="due_date"
+            name="due_date"
+            helperText={touched.due_date ? errors.due_date : ""}
+            error={touched.due_date && Boolean(errors.due_date)}
+            label="Due Date"
+            value={selectedDate}
+            onChange={handleDateChange} />
+        </MuiPickersUtilsProvider>
+        <Autocomplete
+          className="full-width"
+          multiple
+          id="tags"
+          options={tags}
+          freeSolo
+          renderTags={(value, getTagProps) =>
+            value.map((option, index) => (
+              <Chip variant="outlined" label={option} {...getTagProps({ index })} />
+            ))
+          }
+          renderInput={params => (
+            <TextField
+              {...params}
+              variant="outlined"
+              label="Tags"
+              fullWidth />
+          )} />
+      </div>
     </form>
   );
 }
