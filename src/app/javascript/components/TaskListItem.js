@@ -12,8 +12,10 @@ class TaskListItem extends React.Component {
     this.onClickDone = this.onClickDone.bind(this);
     this.viewDetails = this.viewDetails.bind(this);
     this.closeDialog = this.closeDialog.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
     this.state = {
-      dialogOpen: false
+      dialogOpen: false,
+      isCompleted: this.props.task.attributes['is-completed']
     };
   }
 
@@ -37,7 +39,7 @@ class TaskListItem extends React.Component {
     });
   }
 
-  handleUpdate = () => {
+  handleUpdate(e) {
     const updateTask = async () => {
       let token = localStorage.getItem("token");
       const response = await fetch("/api/tasks/" + this.props.task.id, {
@@ -63,6 +65,12 @@ class TaskListItem extends React.Component {
     };
     this.props.task.attributes['is-completed'] = !this.props.task.attributes['is-completed'];
     updateTask();
+    this.setState({
+      isCompleted: this.props.task.attributes['is-completed']
+    });
+
+    // Prevent touch event from being propagated to ListItem
+    e.stopPropagation();
   };
 
   render() {
@@ -73,8 +81,8 @@ class TaskListItem extends React.Component {
           button
           onClick={this.viewDetails}>
           <Checkbox
-            checked={this.props.task.attributes['is-completed']}
-            onChange={this.handleUpdate} />
+            checked={this.state.isCompleted}
+            onClick={this.handleUpdate} />
           <div className="column list-item-left-padding list-item-side-padding">
             <span
               className={clsx("list-item-text", {
