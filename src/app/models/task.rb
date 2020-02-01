@@ -17,8 +17,10 @@ class Task < ApplicationRecord
   end
 
   def tag_list=(names)
-    self.tags = names.map do |tag|
-      Tag.where(name: tag.strip).first_or_create!
+    self.tags = names.map do |name|
+      name = name.strip
+      tag = Tag.where('lower(name) = ?', name.downcase).first
+      tag ||= Tag.create(name: name)
     end
   end
 end

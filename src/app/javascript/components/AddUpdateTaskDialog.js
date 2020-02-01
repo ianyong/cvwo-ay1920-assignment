@@ -83,6 +83,7 @@ class AddUpdateTaskDialog extends React.Component {
         this.props.refreshTaskList();
       } else {
         // Failed to update task
+        console.log(response);
       }
     };
     updateTask();
