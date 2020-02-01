@@ -12,8 +12,9 @@ class Api::TasksController < ApiController
 
   def update
     @task = Task.find(params[:id])
-    puts params[:tag_list]
-    @task.tag_list = params[:tag_list]
+    if params.has_key?(:tag_list)
+      @task.tag_list = params[:tag_list]
+    end
     @task.update(task_params)
     if @task.save
       render json: @task, status: 200
@@ -28,7 +29,8 @@ class Api::TasksController < ApiController
     params.permit(
       :name,
       :description,
-      :due_date
+      :due_date,
+      :is_completed
     )
   end
 end

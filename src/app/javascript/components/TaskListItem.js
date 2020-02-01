@@ -37,6 +37,34 @@ class TaskListItem extends React.Component {
     });
   }
 
+  handleUpdate = () => {
+    const updateTask = async () => {
+      let token = localStorage.getItem("token");
+      const response = await fetch("/api/tasks/" + this.props.task.id, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/vnd.api+json",
+          "Authorization": token
+        },
+        body: JSON.stringify({
+          is_completed: this.props.task.attributes['is-completed']
+        })
+      })
+      const { data } = await response.json();
+      if (response.status === 500) {
+        // Not logged in
+        navigate("/login")
+      } else if (response.status === 200) {
+        // Successfully updated task
+      } else {
+        // Failed to update task
+        console.log(response);
+      }
+    };
+    this.props.task.attributes['is-completed'] = !this.props.task.attributes['is-completed'];
+    updateTask();
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -44,7 +72,9 @@ class TaskListItem extends React.Component {
           className={this.props.task.attributes['is-completed'] ? "done" : ""}
           button
           onClick={this.viewDetails}>
-          <Checkbox />
+          <Checkbox
+            checked={this.props.task.attributes['is-completed']}
+            onChange={this.handleUpdate} />
           <div className="column list-item-left-padding list-item-side-padding">
             <span
               className={clsx("list-item-text", {
