@@ -1,5 +1,6 @@
 import React from "react";
-import { ListItem, Chip } from "@material-ui/core";
+import clsx from "clsx";
+import { ListItem, Chip, Checkbox } from "@material-ui/core";
 import TaskDetailsDialog from "./TaskDetailsDialog";
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import moment from "moment";
@@ -37,26 +38,34 @@ class TaskListItem extends React.Component {
   }
 
   render() {
-    var taskClass = this.props.task.attributes['is_completed'] ? "done" : "not-done";
     return (
       <React.Fragment>
         <ListItem
+          className={this.props.task.attributes['is-completed'] ? "done" : ""}
           button
           onClick={this.viewDetails}>
-          <div>
-            <h2>{this.props.task.attributes.name}</h2>
-            <Chip
-              icon={<DateRangeIcon />}
-              label={moment(this.props.task.attributes['due-date']).format('D MMMM YYYY')}
-              variant="outlined" />
-            {this.props.task.attributes['tag-list'].split("; ").filter(e => e !== "").map((tag, index) => {
-              return(
-                <Chip
-                  className="tag"
-                  key={index}
-                  label={tag} />
-              );
-            })}
+          <Checkbox />
+          <div className="column list-item-left-padding list-item-side-padding">
+            <span
+              className={clsx("list-item-text", {
+                "list-item-text-done": this.props.task.attributes['is-completed']
+              })}>
+              {this.props.task.attributes.name}
+            </span>
+            <div className="row list-item-middle-padding">
+              <Chip
+                icon={<DateRangeIcon />}
+                label={moment(this.props.task.attributes['due-date']).format('D MMMM YYYY')}
+                variant="outlined" />
+              {this.props.task.attributes['tag-list'].split("; ").filter(e => e !== "").map((tag, index) => {
+                return(
+                  <Chip
+                    className="tag"
+                    key={index}
+                    label={tag} />
+                );
+              })}
+            </div>
           </div>
         </ListItem>
         <TaskDetailsDialog

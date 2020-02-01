@@ -60,12 +60,30 @@ div.form-container {
     margin: 10px;
 }
 
-li.done {
-
+.list-item-left-padding {
+    margin-left: 20px;
 }
 
-li.not-done {
+.list-item-middle-padding {
+    margin-top: 8px;
+}
 
+.list-item-side-padding {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.MuiListItem-root.done,
+.MuiListItem-root.done:hover {
+    opacity: 0.5;
+}
+
+.list-item-text-done {
+    text-decoration: line-through;
+}
+
+.list-item-text {
+    font-size: 1.25em;
 }
 
 .MuiTextField-root.textfield {
@@ -80,6 +98,11 @@ li.not-done {
 .row {
     display: flex;
     flex-direction: row;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
 }
 
 .MuiAutocomplete-root.full-width {
