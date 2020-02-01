@@ -32,6 +32,7 @@ const Drawer = props => {
     },
     drawerPaper: {
       width: drawerWidth,
+      overflowX: 'hidden',
     }
   }))();
 
