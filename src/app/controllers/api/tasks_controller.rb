@@ -12,6 +12,7 @@ class Api::TasksController < ApiController
 
   def update
     @task = Task.find(params[:id])
+    @task.tag_list=params[:tag_list]
     @task.update(task_params)
     if @task.save
       render json: @task, status: 200

@@ -55,6 +55,10 @@ const AddUpdateTaskForm = props => {
     props.values.due_date = date;
   };
 
+  const handleTagChange = (event, tags) => {
+    props.values.tags = tags;
+  };
+
   // Set button state based off validation
   useEffect(() => isValid ? enableButton() : disableButton(), [isValid]);
 
@@ -119,7 +123,8 @@ const AddUpdateTaskForm = props => {
               variant="outlined"
               label="Tags"
               fullWidth />
-          )} />
+          )}
+          onChange={handleTagChange} />
       </div>
     </form>
   );
