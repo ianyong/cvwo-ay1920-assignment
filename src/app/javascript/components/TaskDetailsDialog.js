@@ -2,6 +2,8 @@ import React from "react";
 import { Dialog, DialogTitle, DialogActions, Button, DialogContent, DialogContentText } from "@material-ui/core";
 import AddUpdateTaskDialog from "./AddUpdateTaskDialog";
 import DeleteTaskDialog from "./DeleteTaskDialog";
+import DateRangeIcon from "@material-ui/icons/DateRange";
+import moment from "moment";
 
 class TaskDetailsDialog extends React.Component {
   constructor(props) {
@@ -52,9 +54,12 @@ class TaskDetailsDialog extends React.Component {
             {this.props.task.attributes.name}
           </DialogTitle>
           <DialogContent>
-            <DialogContentText>
-              {this.props.task.attributes.description}
-            </DialogContentText>
+            <div className="column">
+              <div className="row">
+                <DateRangeIcon />
+                {moment(this.props.task.attributes['due-date']).format('D MMMM YYYY')}
+              </div>
+            </div>
           </DialogContent>
           <DialogActions>
             <Button
@@ -82,7 +87,6 @@ class TaskDetailsDialog extends React.Component {
           onClose={this.closeEditDialog}
           refreshTaskList={this.props.refreshTaskList} />
         <DeleteTaskDialog
-          key={this.state.deleteDialogOpen}
           task={this.props.task}
           open={this.state.deleteDialogOpen}
           onClose={this.closeDeleteDialog}

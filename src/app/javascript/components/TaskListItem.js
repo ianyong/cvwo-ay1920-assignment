@@ -2,7 +2,7 @@ import React from "react";
 import clsx from "clsx";
 import { ListItem, Chip, Checkbox } from "@material-ui/core";
 import TaskDetailsDialog from "./TaskDetailsDialog";
-import DateRangeIcon from '@material-ui/icons/DateRange';
+import DateRangeIcon from "@material-ui/icons/DateRange";
 import moment from "moment";
 
 class TaskListItem extends React.Component {
@@ -115,6 +115,7 @@ class TaskListItem extends React.Component {
           </div>
         </ListItem>
         <TaskDetailsDialog
+          key={this.state.dialogOpen}
           task={this.props.task}
           open={this.state.dialogOpen}
           onClose={this.closeDialog}
