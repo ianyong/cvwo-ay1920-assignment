@@ -73,6 +73,14 @@ div.form-container {
     padding-bottom: 8px;
 }
 
+.icon-right-padding {
+    padding-right: 10px;
+}
+
+.details-top-padding {
+    padding-top: 10px;
+}
+
 .drawer-padding {
     padding-right: 20px;
 }
@@ -96,7 +104,7 @@ div.form-container {
 }
 
 .MuiChip-root.tag {
-    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .row {

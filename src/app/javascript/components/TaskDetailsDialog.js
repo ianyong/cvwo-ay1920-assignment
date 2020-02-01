@@ -1,8 +1,10 @@
 import React from "react";
-import { Dialog, DialogTitle, DialogActions, Button, DialogContent, DialogContentText } from "@material-ui/core";
+import { Dialog, DialogTitle, DialogActions, Button, DialogContent, Chip } from "@material-ui/core";
 import AddUpdateTaskDialog from "./AddUpdateTaskDialog";
 import DeleteTaskDialog from "./DeleteTaskDialog";
-import DateRangeIcon from "@material-ui/icons/DateRange";
+import DateRangeOutlinedIcon from "@material-ui/icons/DateRangeOutlined";
+import DescriptionOutlinedIcon from "@material-ui/icons/DescriptionOutlined";
+import LabelOutlinedIcon from "@material-ui/icons/LabelOutlined";
 import moment from "moment";
 
 class TaskDetailsDialog extends React.Component {
@@ -56,8 +58,29 @@ class TaskDetailsDialog extends React.Component {
           <DialogContent>
             <div className="column">
               <div className="row">
-                <DateRangeIcon />
+                <DateRangeOutlinedIcon
+                  className="icon-right-padding"
+                  color="primary" />
                 {moment(this.props.task.attributes['due-date']).format('D MMMM YYYY')}
+              </div>
+              <div className="row details-top-padding">
+                <DescriptionOutlinedIcon
+                  className="icon-right-padding"
+                  color="primary" />
+                {this.props.task.attributes.description}
+              </div>
+              <div className="row details-top-padding">
+                <LabelOutlinedIcon
+                  className="icon-right-padding"
+                  color="primary" />
+                {this.props.task.attributes['tag-list'].split("; ").filter(e => e !== "").map((tag, index) => {
+                  return(
+                    <Chip
+                      className="tag"
+                      key={index}
+                      label={tag} />
+                  );
+                })}
               </div>
             </div>
           </DialogContent>

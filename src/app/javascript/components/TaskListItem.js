@@ -100,6 +100,7 @@ class TaskListItem extends React.Component {
             </span>
             <div className="row list-item-middle-padding">
               <Chip
+                className="tag"
                 icon={<DateRangeIcon />}
                 label={moment(this.props.task.attributes['due-date']).format('D MMMM YYYY')}
                 variant="outlined" />
