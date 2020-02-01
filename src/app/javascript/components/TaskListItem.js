@@ -39,6 +39,14 @@ class TaskListItem extends React.Component {
     });
   }
 
+  componentDidUpdate(nextProps) {
+    if (this.props.task.attributes['is-completed'] !== nextProps.task.attributes['is-completed']) {
+      this.setState({
+        isCompleted: !nextProps.task.attributes['is-completed']
+      });
+    }
+  }
+
   handleUpdate(e) {
     const updateTask = async () => {
       let token = localStorage.getItem("token");
