@@ -115,7 +115,6 @@ class TaskListItem extends React.Component {
           </div>
         </ListItem>
         <TaskDetailsDialog
-          key={this.state.dialogOpen}
           task={this.props.task}
           open={this.state.dialogOpen}
           onClose={this.closeDialog}
