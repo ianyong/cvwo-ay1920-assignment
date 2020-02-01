@@ -1,7 +1,7 @@
 import React from "react";
 import TaskListItem from "./TaskListItem";
 import { navigate } from "@reach/router";
-import { Paper } from "@material-ui/core";
+import { Paper, Divider } from "@material-ui/core";
 import moment from "moment";
 
 class TaskList extends React.Component {
@@ -82,13 +82,16 @@ class TaskList extends React.Component {
       <Paper className="list">
         {this.state.tasks.map((task, index) => {
           return (
-            <TaskListItem
-              key={index}
-              task={task}
-              index={index}
-              removeTask={this.props.removeTask}
-              markAsDone={this.props.markAsDone}
-              refreshTaskList={this.props.refreshTaskList} />
+            <React.Fragment key={index}>
+              {index === 0 ? "" : <Divider />}
+              <TaskListItem
+                key={index}
+                task={task}
+                index={index}
+                removeTask={this.props.removeTask}
+                markAsDone={this.props.markAsDone}
+                refreshTaskList={this.props.refreshTaskList} />
+            </React.Fragment>
           );
         })}
       </Paper>
