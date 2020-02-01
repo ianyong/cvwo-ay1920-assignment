@@ -24,6 +24,25 @@ const AddUpdateTaskForm = props => {
   } = props;
 
   const [selectedDate, setSelectedDate] = React.useState(due_date);
+  const [allTags, setAllTags] = React.useState([]);
+
+  const requestAllTags = async () => {
+    let token = localStorage.getItem("token");
+    const response = await fetch("/api/tags", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/vnd.api+json",
+        "Authorization": token
+      }
+    })
+    const { data } = await response.json();
+    if (response.status === 500) {
+      // Not logged in
+      navigate("/login")
+    } else {
+      setAllTags(data);
+    }
+  }
 
   const change = (name, e) => {
     e.persist();
@@ -41,6 +60,9 @@ const AddUpdateTaskForm = props => {
 
   // Update values in parent
   useEffect(() => updateValues(props.values), [props.values]);
+
+  // Run on first render
+  useEffect(() => { requestAllTags() }, []);
 
   return(
     <form>
@@ -83,6 +105,8 @@ const AddUpdateTaskForm = props => {
           multiple
           id="tags"
           defaultValue={tags}
+          options={allTags.map(option => option.attributes.name)}
+          filter={Autocomplete.fuzzyFilter}
           freeSolo
           renderTags={(value, getTagProps) =>
             value.map((option, index) => (
