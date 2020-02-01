@@ -12,8 +12,7 @@ class TaskListItem extends React.Component {
     this.viewDetails = this.viewDetails.bind(this);
     this.closeDialog = this.closeDialog.bind(this);
     this.state = {
-      dialogOpen: false,
-      tags: []
+      dialogOpen: false
     };
   }
 
@@ -37,16 +36,6 @@ class TaskListItem extends React.Component {
     });
   }
 
-  componentDidMount() {
-    let tags = this.props.task.attributes['tag-list'].split("; ");
-    if (tags[0] === "") {
-      tags = []
-    }
-    this.setState({
-      tags: tags
-    });
-  }
-
   render() {
     var taskClass = this.props.task.attributes['is_completed'] ? "done" : "not-done";
     return (
@@ -60,7 +49,7 @@ class TaskListItem extends React.Component {
               icon={<DateRangeIcon />}
               label={moment(this.props.task.attributes['due-date']).format('D MMMM YYYY')}
               variant="outlined" />
-            {this.state.tags.map((tag, index) => {
+            {this.props.task.attributes['tag-list'].split("; ").filter(e => e !== "").map((tag, index) => {
               return(
                 <Chip
                   className="tag"
@@ -72,7 +61,6 @@ class TaskListItem extends React.Component {
         </ListItem>
         <TaskDetailsDialog
           task={this.props.task}
-          tags={this.state.tags}
           open={this.state.dialogOpen}
           onClose={this.closeDialog}
           refreshTaskList={this.props.refreshTaskList} />
