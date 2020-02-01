@@ -1,26 +1,42 @@
 import React from "react";
 import { Dialog, DialogTitle, DialogActions, Button, DialogContent, DialogContentText } from "@material-ui/core";
 import AddUpdateTaskDialog from "./AddUpdateTaskDialog";
+import DeleteTaskDialog from "./DeleteTaskDialog";
 
 class TaskDetailsDialog extends React.Component {
   constructor(props) {
     super(props);
-    this.openDialog = this.openDialog.bind(this);
-    this.closeDialog = this.closeDialog.bind(this);
+    this.openEditDialog = this.openEditDialog.bind(this);
+    this.closeEditDialog = this.closeEditDialog.bind(this);
+    this.openDeleteDialog = this.openDeleteDialog.bind(this);
+    this.closeDeleteDialog = this.closeDeleteDialog.bind(this);
     this.state = {
-      dialogOpen: false
+      editDialogOpen: false,
+      deleteDialogOpen: false
     };
   }
 
-  openDialog() {
+  openEditDialog() {
     this.setState({
-      dialogOpen: true
+      editDialogOpen: true
     });
   }
 
-  closeDialog() {
+  closeEditDialog() {
     this.setState({
-      dialogOpen: false
+      editDialogOpen: false
+    });
+  }
+
+  openDeleteDialog() {
+    this.setState({
+      deleteDialogOpen: true
+    });
+  }
+
+  closeDeleteDialog() {
+    this.setState({
+      deleteDialogOpen: false
     });
   }
   
@@ -42,7 +58,12 @@ class TaskDetailsDialog extends React.Component {
           </DialogContent>
           <DialogActions>
             <Button
-              onClick={() => { this.props.onClose(); this.openDialog(); }}
+              onClick={() => { this.props.onClose(); this.openDeleteDialog(); }}
+              color="secondary">
+              Delete
+            </Button>
+            <Button
+              onClick={() => { this.props.onClose(); this.openEditDialog(); }}
               color="secondary">
               Edit
             </Button>
@@ -55,10 +76,16 @@ class TaskDetailsDialog extends React.Component {
           </DialogActions>
         </Dialog>
         <AddUpdateTaskDialog
-          key={this.state.dialogOpen} // Force update child component
+          key={this.state.editDialogOpen} // Force update child component
           task={this.props.task}
-          open={this.state.dialogOpen}
-          onClose={this.closeDialog}
+          open={this.state.editDialogOpen}
+          onClose={this.closeEditDialog}
+          refreshTaskList={this.props.refreshTaskList} />
+        <DeleteTaskDialog
+          key={this.state.deleteDialogOpen}
+          task={this.props.task}
+          open={this.state.deleteDialogOpen}
+          onClose={this.closeDeleteDialog}
           refreshTaskList={this.props.refreshTaskList} />
       </React.Fragment>
     );

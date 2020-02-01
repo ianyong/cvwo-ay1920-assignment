@@ -83,7 +83,6 @@ class AddUpdateTaskDialog extends React.Component {
         this.props.refreshTaskList();
       } else {
         // Failed to update task
-        console.log(response);
       }
     };
     updateTask();
@@ -136,16 +135,16 @@ class AddUpdateTaskDialog extends React.Component {
         </DialogContent>
         <DialogActions>
           <Button
-            onClick={this.props.onClose}
-            color="secondary">
-            Cancel
-          </Button>
-          <Button
             autoFocus
             onClick={this.props.task ? this.handleUpdate : this.handleSubmit}
-            color="primary"
+            color="secondary"
             disabled={!this.state.buttonEnabled}>
             {this.props.task ? "Update" : "Add"}
+          </Button>
+          <Button
+            onClick={this.props.onClose}
+            color="primary">
+            Cancel
           </Button>
         </DialogActions>
       </Dialog>

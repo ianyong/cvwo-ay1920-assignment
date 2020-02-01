@@ -23,6 +23,16 @@ class Api::TasksController < ApiController
     end
   end
 
+  def destroy
+    @task = Task.find(params[:id])
+    @task.destroy
+    if @task.errors.any?
+      render json: { error: 'Unable to delete task' }, status: 400
+    else
+      render json: { message: 'Task successfully deleted' }, status: 200
+    end
+  end
+
   private
 
   def task_params
