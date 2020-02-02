@@ -8,8 +8,6 @@ import moment from "moment";
 class TaskListItem extends React.Component {
   constructor(props) {
     super(props);
-    this.onClickClose = this.onClickClose.bind(this);
-    this.onClickDone = this.onClickDone.bind(this);
     this.viewDetails = this.viewDetails.bind(this);
     this.closeDialog = this.closeDialog.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
@@ -17,14 +15,6 @@ class TaskListItem extends React.Component {
       dialogOpen: false,
       isCompleted: this.props.task.attributes['is-completed']
     };
-  }
-
-  onClickClose() {
-    this.props.removeTask(parseInt(this.props.index));
-  }
-
-  onClickDone() {
-    this.props.markAsDone(parseInt(this.props.index));
   }
 
   viewDetails() {

@@ -35,6 +35,7 @@ class DeleteTaskDialog extends React.Component {
     return (
       <Dialog
         open={this.props.open}
+        onClose={this.props.onClose} // Responsive full-screen
         fullWidth={true}
         maxWidth="md"
         scroll="paper">

@@ -7,19 +7,9 @@ import moment from "moment";
 class TaskList extends React.Component {
   constructor(props) {
     super(props);
-    this.removeTask = this.removeTask.bind(this);
-    this.markAsDone = this.markAsDone.bind(this);
     this.state = {
       tasks: []
     };
-  }
-
-  removeTask(index) {
-
-  }
-
-  markAsDone(index) {
-
   }
 
   requestTasks = async () => {
@@ -88,8 +78,6 @@ class TaskList extends React.Component {
                 key={index}
                 task={task}
                 index={index}
-                removeTask={this.props.removeTask}
-                markAsDone={this.props.markAsDone}
                 refreshTaskList={this.props.refreshTaskList} />
             </React.Fragment>
           );

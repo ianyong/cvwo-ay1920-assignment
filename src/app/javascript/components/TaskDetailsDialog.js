@@ -62,6 +62,7 @@ class TaskDetailsDialog extends React.Component {
       <React.Fragment>
         <Dialog
           open={this.props.open}
+          onClose={this.props.onClose} // Responsive full-screen
           fullWidth={true}
           maxWidth="md"
           scroll="paper">
