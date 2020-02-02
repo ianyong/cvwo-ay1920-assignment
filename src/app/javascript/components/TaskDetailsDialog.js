@@ -45,6 +45,19 @@ class TaskDetailsDialog extends React.Component {
   }
   
   render() {
+    let tags;
+    if (this.props.task.attributes['tag-list'] === "") {
+      tags = <span className="none-tag">No tags</span>;
+    } else {
+      tags = this.props.task.attributes['tag-list'].split("; ").filter(e => e !== "").map((tag, index) => {
+        return(
+          <Chip
+            className="tag"
+            key={index}
+            label={tag} />
+        );
+      })
+    }
     return (
       <React.Fragment>
         <Dialog
@@ -73,14 +86,7 @@ class TaskDetailsDialog extends React.Component {
                 <LabelOutlinedIcon
                   className="icon-right-padding"
                   color="primary" />
-                {this.props.task.attributes['tag-list'].split("; ").filter(e => e !== "").map((tag, index) => {
-                  return(
-                    <Chip
-                      className="tag"
-                      key={index}
-                      label={tag} />
-                  );
-                })}
+                {tags}
               </div>
             </div>
           </DialogContent>

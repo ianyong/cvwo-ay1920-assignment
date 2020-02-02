@@ -118,6 +118,10 @@ div.form-container {
     flex-direction: column;
 }
 
+.none-tag {
+    opacity: 0.5;
+}
+
 .MuiAutocomplete-root.full-width {
     width: 100%;
     margin-left: 10px;
