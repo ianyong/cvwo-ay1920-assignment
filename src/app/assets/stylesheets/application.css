@@ -126,3 +126,7 @@ div.form-container {
     width: 100%;
     margin-left: 10px;
 }
+
+.cursor-pointer {
+    cursor: pointer !important;
+}

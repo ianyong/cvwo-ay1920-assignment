@@ -100,14 +100,14 @@ class TaskListItem extends React.Component {
             </span>
             <div className="row list-item-middle-padding">
               <Chip
-                className="tag"
+                className="tag cursor-pointer"
                 icon={<DateRangeIcon />}
                 label={moment(this.props.task.attributes['due-date']).format('D MMMM YYYY')}
                 variant="outlined" />
               {this.props.task.attributes['tag-list'].split("; ").filter(e => e !== "").map((tag, index) => {
                 return(
                   <Chip
-                    className="tag"
+                    className="tag cursor-pointer"
                     key={index}
                     label={tag} />
                 );
