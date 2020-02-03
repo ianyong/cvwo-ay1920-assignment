@@ -39,7 +39,7 @@ class AddUpdateTaskDialog extends React.Component {
         body: JSON.stringify({
           name: this.values.name,
           description: this.values.description,
-          due_date: this.values.due_date
+          due_date: new Date(this.values.due_date.getTime() - this.values.due_date.getTimezoneOffset() * 60000)
         })
       })
       const { data } = await response.json();
