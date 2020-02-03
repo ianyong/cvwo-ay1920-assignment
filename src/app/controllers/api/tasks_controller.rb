@@ -4,6 +4,9 @@ class Api::TasksController < ApiController
     @task.is_completed = false
     @task.user_id = context[:current_user].id
     if @task.save
+      if params.has_key?(:tag_list)
+        @task.tag_list = params[:tag_list]
+      end
       render json: @task, status: 200
     else
       render json: { error: 'Unable to create task' }, status: 400
@@ -12,11 +15,11 @@ class Api::TasksController < ApiController
 
   def update
     @task = Task.find(params[:id])
-    if params.has_key?(:tag_list)
-      @task.tag_list = params[:tag_list]
-    end
     @task.update(task_params)
     if @task.save
+      if params.has_key?(:tag_list)
+        @task.tag_list = params[:tag_list]
+      end
       render json: @task, status: 200
     else
       render json: { error: 'Unable to update task' }, status: 400
