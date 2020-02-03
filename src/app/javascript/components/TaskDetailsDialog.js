@@ -49,7 +49,7 @@ class TaskDetailsDialog extends React.Component {
     if (this.props.task.attributes['tag-list'] === "") {
       tags = <span className="none-tag">No tags</span>;
     } else {
-      tags = this.props.task.attributes['tag-list'].split("; ").filter(e => e !== "").map((tag, index) => {
+      tags = this.props.task.attributes['tag-list'].split("\u0000").filter(e => e !== "").map((tag, index) => {
         return(
           <Chip
             className="tag"

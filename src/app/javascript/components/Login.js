@@ -51,7 +51,9 @@ function Login() {
 
   return (
     <div className="form-container">
-      <Paper className="form">
+      <Paper
+        className="form"
+        elevation={4}>
         <Formik
           initialValues={values}
           onSubmit={handleSubmit}
