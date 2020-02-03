@@ -25,6 +25,7 @@ const AddUpdateTaskForm = props => {
 
   const [selectedDate, setSelectedDate] = React.useState(due_date);
   const [allTags, setAllTags] = React.useState([]);
+  const [selectedTags, setSelectedTags] = React.useState([]);
 
   const requestAllTags = async () => {
     let token = localStorage.getItem("token");
@@ -56,7 +57,15 @@ const AddUpdateTaskForm = props => {
   };
 
   const handleTagChange = (event, tags) => {
-    props.values.tags = tags;
+    setSelectedTags(tags);
+  };
+
+  // Upon losing focus, turn any remaining user input into a chip
+  const handleLoseFocus = event => {
+    // console.log(event.target.value);
+    if (event.target.value.length > 0) {
+      setSelectedTags([...selectedTags, event.target.value]);
+    }
   };
 
   // Set button state based off validation
@@ -66,7 +75,10 @@ const AddUpdateTaskForm = props => {
   useEffect(() => updateValues(props.values), [props.values]);
 
   // Run on first render
-  useEffect(() => { requestAllTags() }, []);
+  useEffect(() => { requestAllTags(); setSelectedTags(props.values.tags); }, []);
+
+  // Update props
+  useEffect(() => { props.values.tags = selectedTags }, [selectedTags]);
 
   return(
     <form>
@@ -108,7 +120,7 @@ const AddUpdateTaskForm = props => {
           className="full-width"
           multiple
           id="tags"
-          defaultValue={tags}
+          value={selectedTags}
           options={allTags.map(option => option.attributes.name)}
           filter={Autocomplete.fuzzyFilter}
           freeSolo
@@ -124,7 +136,8 @@ const AddUpdateTaskForm = props => {
               label="Tags"
               fullWidth />
           )}
-          onChange={handleTagChange} />
+          onChange={handleTagChange}
+          onBlur={handleLoseFocus} />
       </div>
     </form>
   );
