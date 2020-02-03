@@ -105,12 +105,20 @@ div.form-container {
 
 .MuiChip-root.tag {
     margin-right: 5px;
+    margin-bottom: 5px;
 }
 
 .row {
     display: flex;
     flex-direction: row;
     align-items: center;
+}
+
+.row-wrap {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 .column {

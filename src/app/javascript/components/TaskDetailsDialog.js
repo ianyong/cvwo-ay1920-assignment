@@ -87,7 +87,9 @@ class TaskDetailsDialog extends React.Component {
                 <LabelOutlinedIcon
                   className="icon-right-padding"
                   color="primary" />
-                {tags}
+                <div className="row-wrap">
+                  {tags}
+                </div>
               </div>
             </div>
           </DialogContent>
