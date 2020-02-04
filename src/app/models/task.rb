@@ -16,11 +16,12 @@ class Task < ApplicationRecord
     tags.map(&:name).join("\u0000")
   end
 
-  def tag_list=(names)
+  def tag_list=(values)
+    names, user_id = values
     self.tags = names.map do |name|
       name = name.strip
       tag = Tag.where('lower(name) = ?', name.downcase).first
-      tag ||= Tag.create(name: name)
+      tag ||= Tag.create(name: name, user_id: user_id)
     end
   end
 end
