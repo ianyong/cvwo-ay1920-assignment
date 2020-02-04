@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   namespace :api do
     post 'auth/register', to: 'users#register'
     post 'auth/login', to: 'users#login'
+    get 'users/filters', to: 'users#filters'
     jsonapi_resources :tasks
     jsonapi_resources :tags
   end

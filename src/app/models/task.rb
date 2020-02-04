@@ -16,8 +16,7 @@ class Task < ApplicationRecord
     tags.map(&:name).join("\u0000")
   end
 
-  def tag_list=(values)
-    names, user_id = values
+  def set_tag_list(names, user_id)
     self.tags = names.map do |name|
       name = name.strip
       tag = Tag.where('lower(name) = ? and user_id = ?', name.downcase, user_id).first

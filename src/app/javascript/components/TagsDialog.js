@@ -32,7 +32,7 @@ class TagsDialog extends React.Component {
   }
 
   componentDidMount() {
-    this.requestAllTags();
+    //this.requestAllTags();
   }
 
   render() {

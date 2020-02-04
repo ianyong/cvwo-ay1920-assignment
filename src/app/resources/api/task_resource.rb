@@ -4,8 +4,17 @@ class Api::TaskResource < JSONAPI::Resource
   has_many :tags, through: :taggings
 
   def self.records(options = {})
+    # Return only logged in user's tasks
     context = options[:context]
-    context[:current_user].tasks
+    @tasks = context[:current_user].tasks
+
+    # Apply tags filter
+    tags_filter = context[:current_user].tags_filter
+    unless tags_filter.nil? || tags_filter.empty?
+      @tasks = @tasks.includes(:tags).where("tags.id in (?)", tags_filter.split(";").map(&:to_i));
+    end
+
+    return @tasks
   end
 
   filter :until_date, apply: ->(records, value, _options) {

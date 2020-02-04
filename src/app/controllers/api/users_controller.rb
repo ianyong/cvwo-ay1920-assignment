@@ -8,12 +8,17 @@ class Api::UsersController < ApiController
 
   def register
     @user = User.create(user_params)
+    @user.tags_filter = ""
     if @user.save
       response = { message: 'User created successfully'}
       render json: response, status: :created
     else
       render json: @user.errors, status: :bad
     end
+  end
+
+  def filters
+    render json: { tags_filter: context[:current_user].tags_filter }, status: 200
   end
 
   private
