@@ -20,7 +20,7 @@ class Task < ApplicationRecord
     names, user_id = values
     self.tags = names.map do |name|
       name = name.strip
-      tag = Tag.where('lower(name) = ?', name.downcase).first
+      tag = Tag.where('lower(name) = ? and user_id = ?', name.downcase, user_id).first
       tag ||= Tag.create(name: name, user_id: user_id)
     end
   end
