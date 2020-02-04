@@ -19,7 +19,7 @@ class Api::UsersController < ApiController
 
   def set_filters
     @user = context[:current_user]
-    @user.tags_filter = params[:tags_filter]
+    @user.tags_filter = params[:tags_filter].gsub("\u0000", "\u001F")
     if @user.save
       render json: { message: 'Tags filter saved successfully' }, status: 200
     else
@@ -28,7 +28,7 @@ class Api::UsersController < ApiController
   end
 
   def get_filters
-    render json: { tags_filter: context[:current_user].tags_filter }, status: 200
+    render json: { tags_filter: context[:current_user].tags_filter.gsub("\u001F", "\u0000") }, status: 200
   end
 
   private
