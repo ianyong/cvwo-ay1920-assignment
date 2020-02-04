@@ -17,7 +17,8 @@ const Drawer = props => {
     dateRange,
     setDateRange,
     showCompleted,
-    setShowCompleted
+    setShowCompleted,
+    refreshTaskList
   } = props;
 
   const styles = makeStyles(theme => ({
@@ -151,7 +152,8 @@ const Drawer = props => {
       </MaterialDrawer>
       <TagsDialog
         open={tagsDialogOpen}
-        onClose={closeTagsDialog} />
+        onClose={closeTagsDialog}
+        refreshTaskList={refreshTaskList} />
     </React.Fragment>
   );
 }

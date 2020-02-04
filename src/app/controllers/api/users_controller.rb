@@ -17,7 +17,17 @@ class Api::UsersController < ApiController
     end
   end
 
-  def filters
+  def set_filters
+    @user = context[:current_user]
+    @user.tags_filter = params[:tags_filter]
+    if @user.save
+      render json: { message: 'Tags filter saved successfully' }, status: 200
+    else
+      render json: @user.errors, status: 400
+    end
+  end
+
+  def get_filters
     render json: { tags_filter: context[:current_user].tags_filter }, status: 200
   end
 
@@ -41,7 +51,13 @@ class Api::UsersController < ApiController
       :first_name,
       :last_name,
       :email,
-      :password
+      :password,
+    )
+  end
+
+  def tags_params
+    params.permit(
+      :tags_filter
     )
   end
 end

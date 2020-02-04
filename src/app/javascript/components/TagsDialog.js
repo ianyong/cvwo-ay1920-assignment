@@ -5,6 +5,7 @@ import { Autocomplete } from "@material-ui/lab";
 class TagsDialog extends React.Component {
   constructor(props) {
     super(props);
+    this.handleTagChange = this.handleTagChange.bind(this);
     this.state = {
       allTags: [],
       tagsFilter: []
@@ -46,8 +47,32 @@ class TagsDialog extends React.Component {
       navigate("/login")
     } else {
       this.setState({
-        tagsFilter: tags_filter.split(";")
+        tagsFilter: tags_filter.split("\u0000").filter(e => e !== "")
       });
+    }
+  }
+
+  setTagsFilter = async () => {
+    let token = localStorage.getItem("token");
+    const response = await fetch("/api/users/filters", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/vnd.api+json",
+        "Authorization": token
+      },
+      body: JSON.stringify({
+        tags_filter: this.state.tagsFilter.join("\u0000")
+      })
+    })
+    const { data } = await response.json();
+    if (response.status === 500) {
+      // Not logged in
+      navigate("/login")
+    } else if (response.status === 200) {
+      // Successfully updated tags filter
+      this.props.refreshTaskList();
+    } else {
+      // Failed to update tags filter
     }
   }
 
@@ -56,11 +81,17 @@ class TagsDialog extends React.Component {
     this.requestTagsFilter();
   }
 
+  handleTagChange(event, tags) {
+    this.setState({
+      tagsFilter: tags
+    });
+  }
+
   render() {
     return (
       <Dialog
         open={this.props.open}
-        onClose={this.props.onClose}
+        onClose={() => { this.props.onClose(); this.setTagsFilter(); }}
         fullWidth={true}
         maxWidth="md"
         scroll="paper">
@@ -85,12 +116,13 @@ class TagsDialog extends React.Component {
                 variant="outlined"
                 label="Filter"
                 fullWidth />
-            )} />
+            )}
+            onChange={this.handleTagChange} />
         </DialogContent>
         <DialogActions>
           <Button
             autoFocus
-            onClick={this.props.onClose}
+            onClick={() => { this.props.onClose(); this.setTagsFilter(); }}
             color="primary">
             Close
           </Button>

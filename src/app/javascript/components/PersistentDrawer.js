@@ -69,7 +69,8 @@ function PersistentDrawer() {
         dateRange={dateRange}
         setDateRange={setDateRange}
         showCompleted={showCompleted}
-        setShowCompleted={setShowCompleted} />
+        setShowCompleted={setShowCompleted}
+        refreshTaskList={refreshTaskList} />
       <main
         className={clsx(styles.content, {
           [styles.contentShift]: open,
