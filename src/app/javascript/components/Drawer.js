@@ -2,10 +2,12 @@ import React from "react";
 import { navigate } from "@reach/router";
 import { Drawer as MaterialDrawer, makeStyles, IconButton, Divider, List, ListItem, ListItemText, ListItemIcon, FormControlLabel, Switch } from "@material-ui/core";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import TodayIcon from '@material-ui/icons/Today';
-import DateRangeIcon from '@material-ui/icons/DateRange';
-import EventNoteIcon from '@material-ui/icons/EventNote';
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import TodayIcon from "@material-ui/icons/Today";
+import DateRangeIcon from "@material-ui/icons/DateRange";
+import EventNoteIcon from "@material-ui/icons/EventNote";
+import LabelIcon from "@material-ui/icons/Label";
+import TagsDialog from "./TagsDialog";
 
 const Drawer = props => {
   const {
@@ -36,6 +38,16 @@ const Drawer = props => {
     }
   }))();
 
+  const [tagsDialogOpen, setTagsDialogOpen] = React.useState(false);
+
+  const openTagsDialog = () => {
+    setTagsDialogOpen(true);
+  };
+
+  const closeTagsDialog = () => {
+    setTagsDialogOpen(false);
+  };
+
   const logout = () => {
     localStorage.removeItem("token");
     navigate("/login");
@@ -53,77 +65,94 @@ const Drawer = props => {
   };
 
   return (
-    <MaterialDrawer
-      variant="persistent"
-      anchor="left"
-      open={open}
-      className={styles.drawer}
-      classes={{
-        paper: styles.drawerPaper,
-      }}>
-      <div
-        className={styles.drawerHeader}>
-        <IconButton
-          onClick={handleDrawerClose}>
-          <ChevronLeftIcon />
-        </IconButton>
-      </div>
-      <Divider />
-      <List>
-        <ListItem
-          button
-          selected={dateRange === 0}
-          onClick={e => handleDateRangeSelection(e, 0)}>
-          <ListItemIcon>
-            <TodayIcon />
-          </ListItemIcon>
-          <ListItemText
-            primary="Today" />
-        </ListItem>
-        <ListItem
-          button
-          selected={dateRange === 1}
-          onClick={e => handleDateRangeSelection(e, 1)}>
-          <ListItemIcon>
-            <DateRangeIcon />
-          </ListItemIcon>
-          <ListItemText
-            primary="Next 7 days" />
-        </ListItem>
-        <ListItem
-          button
-          selected={dateRange === 2}
-          onClick={e => handleDateRangeSelection(e, 2)}>
-          <ListItemIcon>
-            <EventNoteIcon />
-          </ListItemIcon>
-          <ListItemText
-            primary="All" />
-        </ListItem>
-      </List>
-      <Divider />
+    <React.Fragment>
+      <MaterialDrawer
+        variant="persistent"
+        anchor="left"
+        open={open}
+        className={styles.drawer}
+        classes={{
+          paper: styles.drawerPaper,
+        }}>
+        <div
+          className={styles.drawerHeader}>
+          <IconButton
+            onClick={handleDrawerClose}>
+            <ChevronLeftIcon />
+          </IconButton>
+        </div>
+        <Divider />
         <List>
-          <FormControlLabel
-            className="drawer-padding"
-            checked={showCompleted === 0 ? false : true}
-            onChange={e => toggleShowCompletedTasks(e)}
-            control={<Switch color="primary" />}
-            label="View all completed tasks"
-            labelPlacement="start" />
+          <ListItem
+            button
+            selected={dateRange === 0}
+            onClick={e => handleDateRangeSelection(e, 0)}>
+            <ListItemIcon>
+              <TodayIcon />
+            </ListItemIcon>
+            <ListItemText
+              primary="Today" />
+          </ListItem>
+          <ListItem
+            button
+            selected={dateRange === 1}
+            onClick={e => handleDateRangeSelection(e, 1)}>
+            <ListItemIcon>
+              <DateRangeIcon />
+            </ListItemIcon>
+            <ListItemText
+              primary="Next 7 days" />
+          </ListItem>
+          <ListItem
+            button
+            selected={dateRange === 2}
+            onClick={e => handleDateRangeSelection(e, 2)}>
+            <ListItemIcon>
+              <EventNoteIcon />
+            </ListItemIcon>
+            <ListItemText
+              primary="All" />
+          </ListItem>
         </List>
-      <Divider />
-      <List>
-        <ListItem
-          button
-          onClick={logout}>
-          <ListItemIcon>
-            <ExitToAppIcon />
-          </ListItemIcon>
-          <ListItemText
-            primary="Log out" />
-        </ListItem>
-      </List>
-    </MaterialDrawer>
+        <Divider />
+          <List>
+            <FormControlLabel
+              className="drawer-padding"
+              checked={showCompleted === 0 ? false : true}
+              onChange={e => toggleShowCompletedTasks(e)}
+              control={<Switch color="primary" />}
+              label="View all completed tasks"
+              labelPlacement="start" />
+          </List>
+        <Divider />
+          <List>
+            <ListItem
+              button
+              onClick={openTagsDialog}>
+              <ListItemIcon>
+                <LabelIcon />
+              </ListItemIcon>
+              <ListItemText
+                primary="Set tags" />
+            </ListItem>
+          </List>
+        <Divider />
+        <List>
+          <ListItem
+            button
+            onClick={logout}>
+            <ListItemIcon>
+              <ExitToAppIcon />
+            </ListItemIcon>
+            <ListItemText
+              primary="Log out" />
+          </ListItem>
+        </List>
+      </MaterialDrawer>
+      <TagsDialog
+        open={tagsDialogOpen}
+        onClose={closeTagsDialog} />
+    </React.Fragment>
   );
 }
 
