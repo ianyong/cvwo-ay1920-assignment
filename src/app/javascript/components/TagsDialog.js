@@ -31,8 +31,29 @@ class TagsDialog extends React.Component {
     }
   }
 
+  requestTagsFilter = async () => {
+    let token = localStorage.getItem("token");
+    const response = await fetch("/api/users/filters", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/vnd.api+json",
+        "Authorization": token
+      }
+    })
+    const { tags_filter } = await response.json();
+    if (response.status === 500) {
+      // Not logged in
+      navigate("/login")
+    } else {
+      this.setState({
+        tagsFilter: tags_filter.split(";")
+      });
+    }
+  }
+
   componentDidMount() {
-    //this.requestAllTags();
+    this.requestAllTags();
+    this.requestTagsFilter();
   }
 
   render() {
@@ -50,7 +71,7 @@ class TagsDialog extends React.Component {
           <Autocomplete
             multiple
             id="tags-filter"
-            value={this.state.tagFilter}
+            value={this.state.tagsFilter}
             options={this.state.allTags.map(option => option.attributes.name)}
             filter={Autocomplete.fuzzyFilter}
             renderTags={(value, getTagProps) =>
