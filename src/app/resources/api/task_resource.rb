@@ -11,7 +11,7 @@ class Api::TaskResource < JSONAPI::Resource
     # Apply tags filter
     tags_filter = context[:current_user].tags_filter
     unless tags_filter.nil? || tags_filter.empty?
-      @tasks = @tasks.includes(:tags).where("tags.name in (?) and tags.user_id = ?", tags_filter.split(";"), context[:current_user].id);
+      @tasks = @tasks.includes(:tags).where("tags.name in (?) and tags.user_id = ?", tags_filter.split("\u001F"), context[:current_user].id);
     end
 
     return @tasks
