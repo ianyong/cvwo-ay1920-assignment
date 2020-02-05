@@ -68,9 +68,32 @@ function Login() {
                   .required("Password is required")
   });
 
-  const values = {
+  const registerValidationSchema = Yup.object({
+    firstName: Yup.string()
+                  .required("First name is required"),
+    lastName: Yup.string()
+                  .required("Last name is required"),
+    email: Yup.string()
+              .email("Invalid email")
+              .required("Email is required"),
+    password: Yup.string()
+                  .min(6, "Password must contain at least 6 characters")
+                  .required("Password is required"),
+    confirmPassword: Yup.string()
+                        .oneOf([Yup.ref('password'), null], "Password does not match")
+  });
+
+  const loginValues = {
     email: "",
     password: ""
+  };
+
+  const registerValues = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: ""
   };
 
   return (
@@ -88,7 +111,7 @@ function Login() {
             }
           }}>
           <Formik
-            initialValues={values}
+            initialValues={loginValues}
             onSubmit={handleLogin}
             validationSchema={loginValidationSchema}>
             {props => <LoginForm
@@ -112,9 +135,9 @@ function Login() {
             }
           }}>
           <Formik
-            initialValues={values}
+            initialValues={registerValues}
             onSubmit={handleLogin}
-            validationSchema={loginValidationSchema}>
+            validationSchema={registerValidationSchema}>
             {props => <RegisterForm
                         {...props}
                         closeRegisterForm={closeRegisterForm}

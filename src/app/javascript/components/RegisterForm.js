@@ -3,7 +3,7 @@ import { TextField, Button } from "@material-ui/core";
 
 const RegisterForm = props => {
   const {
-    values: { email, password },
+    values: { firstName, lastName, email, password, confirmPassword },
     errors,
     touched,
     handleSubmit,
@@ -24,10 +24,31 @@ const RegisterForm = props => {
     <form
       className="form"
       onSubmit={handleSubmit}>
-      <p
-        className="title">
+      <p className="title">
         To-do Task Manager
       </p>
+      <div className="row">
+        <TextField
+          className="textfield textfield-right-margin"
+          id="firstName"
+          name="firstName"
+          helperText={touched.firstName ? errors.firstName : ""}
+          error={touched.firstName && Boolean(errors.firstName)}
+          label="First name"
+          value={firstName}
+          onChange={change.bind(null, "firstName")}
+          variant="outlined" />
+        <TextField
+          className="textfield textfield-left-margin"
+          id="lastName"
+          name="lastName"
+          helperText={touched.lastName ? errors.lastName : ""}
+          error={touched.lastName && Boolean(errors.lastName)}
+          label="Last name"
+          value={lastName}
+          onChange={change.bind(null, "lastName")}
+          variant="outlined" />
+      </div>
       <TextField
         className="textfield"
         id="email"
@@ -48,6 +69,18 @@ const RegisterForm = props => {
         label="Password"
         value={password}
         onChange={change.bind(null, "password")}
+        fullWidth
+        variant="outlined"
+        type="password" />
+      <TextField
+        className="textfield"
+        id="confirmPassword"
+        name="confirmPassword"
+        helperText={touched.confirmPassword ? errors.confirmPassword : ""}
+        error={touched.confirmPassword && Boolean(errors.confirmPassword)}
+        label="Confirm password"
+        value={confirmPassword}
+        onChange={change.bind(null, "confirmPassword")}
         fullWidth
         variant="outlined"
         type="password" />

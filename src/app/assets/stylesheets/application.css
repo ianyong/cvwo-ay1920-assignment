@@ -115,7 +115,17 @@ div.form-container {
 }
 
 .MuiTextField-root.textfield {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+}
+
+.MuiTextField-root.textfield-left-margin {
+    margin-left: 5px;
+    width: 50%;
+}
+
+.MuiTextField-root.textfield-right-margin {
+    margin-right: 5px;
+    width: 50%;
 }
 
 .MuiChip-root.tag {
