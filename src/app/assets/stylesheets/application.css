@@ -90,6 +90,15 @@ div.form-container {
     opacity: 0.5;
 }
 
+.MuiListItem-root.overdue {
+    background-color: mistyrose;
+}
+
+.MuiListItem-root.overdue:hover {
+    background-color: mistyrose;
+    filter: brightness(0.9);
+}
+
 .list-item-text-done {
     text-decoration: line-through;
 }

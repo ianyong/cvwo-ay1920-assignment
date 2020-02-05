@@ -75,7 +75,9 @@ class TaskListItem extends React.Component {
     return (
       <React.Fragment>
         <ListItem
-          className={this.props.task.attributes['is-completed'] ? "done" : ""}
+          className={this.props.task.attributes['is-completed'] ? "done"
+                    : this.props.task.attributes['due-date'] < moment(new Date()).format("YYYY-MM-DD")
+                    ? "overdue" : ""}
           button
           onClick={this.viewDetails}>
           <Checkbox
