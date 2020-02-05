@@ -10,7 +10,8 @@ class Api::UsersController < ApiController
     @user = User.create(user_params)
     @user.tags_filter = ""
     if @user.save
-      response = { message: 'User created successfully'}
+      command = AuthenticateUser.call(params[:email], params[:password])
+      response = { message: 'User created successfully', access_token: command.result }
       render json: response, status: :created
     else
       render json: @user.errors, status: :bad
