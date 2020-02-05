@@ -108,6 +108,7 @@ function Login() {
                   .required("Password is required"),
     confirmPassword: Yup.string()
                         .oneOf([Yup.ref('password'), null], "Password does not match")
+                        .required("Confirm password is required")
   });
 
   const loginValues = {
