@@ -14,7 +14,7 @@ class Api::UsersController < ApiController
       response = { message: 'User created successfully', access_token: command.result }
       render json: response, status: :created
     else
-      render json: @user.errors, status: :bad
+      render json: @user.errors, status: :unprocessable_entity
     end
   end
 
@@ -43,7 +43,7 @@ class Api::UsersController < ApiController
         message: 'Login Successful'
       }
     else
-      render json: { error: command.errors }, status: :four_zero_one
+      render json: { error: command.errors }, status: :unauthorized
     end
    end
 
