@@ -68,22 +68,34 @@ class TaskList extends React.Component {
   }
 
   render() {
-    return (
-      <Paper className="list">
-        {this.state.tasks.map((task, index) => {
-          return (
-            <React.Fragment key={index}>
-              {index === 0 ? "" : <Divider />}
-              <TaskListItem
-                key={index}
-                task={task}
-                index={index}
-                refreshTaskList={this.props.refreshTaskList} />
-            </React.Fragment>
-          );
-        })}
-      </Paper>
-    );
+    if (this.state.tasks.length === 0) {
+      this.props.setEmptyDisplay(true);
+      return (
+        <div className="no-tasks-container">
+          <span className="no-tasks">
+            No tasks to be displayed
+          </span>
+        </div>
+      );
+    } else {
+      this.props.setEmptyDisplay(false);
+      return (
+        <Paper className="list">
+          {this.state.tasks.map((task, index) => {
+            return (
+              <React.Fragment key={index}>
+                {index === 0 ? "" : <Divider />}
+                <TaskListItem
+                  key={index}
+                  task={task}
+                  index={index}
+                  refreshTaskList={this.props.refreshTaskList} />
+              </React.Fragment>
+            );
+          })}
+        </Paper>
+      );
+    }
   }
 }
 

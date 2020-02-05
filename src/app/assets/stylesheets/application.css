@@ -64,7 +64,31 @@ div.form-container {
 }
 
 .list {
-    margin: 10px;
+    margin: 30px;
+}
+
+.no-tasks-container {
+    flex-grow: 1;
+    display: -webkit-flexbox;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.no-tasks {
+    font-size: 2em;
+    opacity: 0.5;
+}
+
+/* Reach router's wrapping div */
+div[role="group"][tabindex] {
+    min-height: inherit;
 }
 
 .list-item-left-padding {
