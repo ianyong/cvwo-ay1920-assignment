@@ -1,5 +1,4 @@
 import React from "react";
-import { navigate } from "@reach/router";
 import { Drawer as MaterialDrawer, makeStyles, IconButton, Divider, List, ListItem, ListItemText, ListItemIcon, FormControlLabel, Switch } from "@material-ui/core";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
@@ -8,6 +7,7 @@ import DateRangeIcon from "@material-ui/icons/DateRange";
 import EventNoteIcon from "@material-ui/icons/EventNote";
 import LabelIcon from "@material-ui/icons/Label";
 import TagsDialog from "./TagsDialog";
+import LogoutDialog from "./LogoutDialog";
 
 const Drawer = props => {
   const {
@@ -40,6 +40,7 @@ const Drawer = props => {
   }))();
 
   const [tagsDialogOpen, setTagsDialogOpen] = React.useState(false);
+  const [logoutDialogOpen, setLogoutDialogOpen] = React.useState(false);
 
   const openTagsDialog = () => {
     setTagsDialogOpen(true);
@@ -49,9 +50,12 @@ const Drawer = props => {
     setTagsDialogOpen(false);
   };
 
-  const logout = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
+  const openLogoutDialog = () => {
+    setLogoutDialogOpen(true);
+  };
+
+  const closeLogoutDialog = () => {
+    setLogoutDialogOpen(false);
   };
 
   const handleDateRangeSelection = (event, index) => {
@@ -141,7 +145,7 @@ const Drawer = props => {
         <List>
           <ListItem
             button
-            onClick={logout}>
+            onClick={openLogoutDialog}>
             <ListItemIcon>
               <ExitToAppIcon />
             </ListItemIcon>
@@ -154,6 +158,9 @@ const Drawer = props => {
         open={tagsDialogOpen}
         onClose={closeTagsDialog}
         refreshTaskList={refreshTaskList} />
+      <LogoutDialog
+        open={logoutDialogOpen}
+        onClose={closeLogoutDialog} />
     </React.Fragment>
   );
 }
