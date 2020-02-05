@@ -11,17 +11,8 @@ const registerTransition = React.forwardRef(function Transition(props, ref) {
 });
 
 function Login() {
-  const [loginFormOpen, setLoginFormOpen] = React.useState(true);
   const [registerFormOpen, setRegisterFormOpen] = React.useState(false);
   const [emailExists, setEmailExists] = React.useState(false);
-
-  const openLoginForm = () => {
-    setLoginFormOpen(true);
-  };
-
-  const closeLoginForm = () => {
-    setLoginFormOpen(false);
-  };
 
   const openRegisterForm = () => {
     setRegisterFormOpen(true);
@@ -29,6 +20,7 @@ function Login() {
 
   const closeRegisterForm = () => {
     setRegisterFormOpen(false);
+    setEmailExists(false);
   };
 
   const handleLogin = values => {
@@ -151,7 +143,6 @@ function Login() {
             validationSchema={loginValidationSchema}>
             {props => <LoginForm
                         {...props}
-                        closeLoginForm={closeLoginForm}
                         openRegisterForm={openRegisterForm} />}
           </Formik>
         </Dialog>
@@ -176,7 +167,6 @@ function Login() {
             {props => <RegisterForm
                         {...props}
                         closeRegisterForm={closeRegisterForm}
-                        openLoginForm={openLoginForm}
                         emailExists={emailExists}
                         setEmailExists={setEmailExists} />}
           </Formik>

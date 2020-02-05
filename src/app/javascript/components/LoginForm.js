@@ -63,7 +63,7 @@ const LoginForm = props => {
         <Button
           className="button"
           color="secondary"
-          onClick={() => { closeLoginForm(); openRegisterForm(); }}>
+          onClick={openRegisterForm}>
           Don't have an account?
         </Button>
       </div>

@@ -101,7 +101,7 @@ const RegisterForm = props => {
         <Button
           className="button"
           color="secondary"
-          onClick={() => { closeRegisterForm(); openLoginForm(); }}>
+          onClick={closeRegisterForm}>
           Already have an account?
         </Button>
       </div>
