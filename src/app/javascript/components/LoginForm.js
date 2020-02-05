@@ -9,7 +9,9 @@ const LoginForm = props => {
     handleSubmit,
     handleChange,
     isValid,
-    setFieldTouched
+    setFieldTouched,
+    closeLoginForm,
+    openRegisterForm
   } = props;
 
   const change = (name, e) => {
@@ -57,6 +59,14 @@ const LoginForm = props => {
         variant="contained">
         Log in
       </Button>
+      <div className="button-container">
+        <Button
+          className="button"
+          color="secondary"
+          onClick={() => { closeLoginForm(); openRegisterForm(); }}>
+          Don't have an account?
+        </Button>
+      </div>
     </form>
   );
 };

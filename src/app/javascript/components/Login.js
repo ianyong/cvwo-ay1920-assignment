@@ -3,10 +3,33 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { navigate } from "@reach/router";
 import LoginForm from "./LoginForm";
-import { Dialog } from "@material-ui/core";
+import { Dialog, Slide } from "@material-ui/core";
 import RegisterForm from "./RegisterForm";
 
+const registerTransition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="left" ref={ref} {...props} />;
+});
+
 function Login() {
+  const [loginFormOpen, setLoginFormOpen] = React.useState(true);
+  const [registerFormOpen, setRegisterFormOpen] = React.useState(false);
+
+  const openLoginForm = () => {
+    setLoginFormOpen(true);
+  };
+
+  const closeLoginForm = () => {
+    setLoginFormOpen(false);
+  };
+
+  const openRegisterForm = () => {
+    setRegisterFormOpen(true);
+  };
+
+  const closeRegisterForm = () => {
+    setRegisterFormOpen(false);
+  };
+
   const handleLogin = values => {
     const login = async () => {
       const csrfToken = document.querySelector("meta[name=csrf-token]").content;
@@ -68,14 +91,18 @@ function Login() {
             initialValues={values}
             onSubmit={handleLogin}
             validationSchema={loginValidationSchema}>
-            {props => <LoginForm {...props} />}
+            {props => <LoginForm
+                        {...props}
+                        closeLoginForm={closeLoginForm}
+                        openRegisterForm={openRegisterForm} />}
           </Formik>
         </Dialog>
       </div>
       <div className="form-container">
         <Dialog
           className="column"
-          open={true}
+          TransitionComponent={registerTransition}
+          open={registerFormOpen}
           fullWidth={true}
           maxWidth="sm"
           scroll="paper"
@@ -88,7 +115,10 @@ function Login() {
             initialValues={values}
             onSubmit={handleLogin}
             validationSchema={loginValidationSchema}>
-            {props => <RegisterForm {...props} />}
+            {props => <RegisterForm
+                        {...props}
+                        closeRegisterForm={closeRegisterForm}
+                        openLoginForm={openLoginForm} />}
           </Formik>
         </Dialog>
       </div>
