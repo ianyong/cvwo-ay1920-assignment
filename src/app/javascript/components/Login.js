@@ -50,13 +50,44 @@ function Login() {
         if (data.message) {
           // Successfully logged in
           localStorage.setItem("token", data.access_token);
-          navigate("/")
+          navigate("/");
         } else {
           // Invalid credentials
         }
       })
     };
     login();
+  };
+
+  const handleRegister = values => {
+    const register = async () => {
+      const csrfToken = document.querySelector("meta[name=csrf-token]").content;
+      fetch("/api/auth/register", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/vnd.api+json",
+          "X-CSRF-Token": csrfToken
+        },
+        body: JSON.stringify({
+          first_name: values.firstName,
+          last_name: values.lastName,
+          email: values.email,
+          password: values.password
+        })
+      })
+      .then(resp => resp.json())
+      .then(data => {
+        if (data.message) {
+          // Successfully registered
+          localStorage.setItem("token", data.access_token);
+          navigate("/");
+        } else {
+          // Invalid information
+        }
+      })
+    };
+    register();
   };
 
   const loginValidationSchema = Yup.object({
@@ -136,7 +167,7 @@ function Login() {
           }}>
           <Formik
             initialValues={registerValues}
-            onSubmit={handleLogin}
+            onSubmit={handleRegister}
             validationSchema={registerValidationSchema}>
             {props => <RegisterForm
                         {...props}
