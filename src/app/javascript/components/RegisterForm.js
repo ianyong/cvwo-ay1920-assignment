@@ -11,13 +11,18 @@ const RegisterForm = props => {
     isValid,
     setFieldTouched,
     closeRegisterForm,
-    openLoginForm
+    openLoginForm,
+    emailExists,
+    setEmailExists
   } = props;
 
   const change = (name, e) => {
     e.persist();
     handleChange(e);
     setFieldTouched(name, true, false);
+    if (name == "email" && emailExists) {
+      setEmailExists(false);
+    }
   };
 
   return(
@@ -53,8 +58,8 @@ const RegisterForm = props => {
         className="textfield"
         id="email"
         name="email"
-        helperText={touched.email ? errors.email : ""}
-        error={touched.email && Boolean(errors.email)}
+        helperText={emailExists ? "Email already exists" : touched.email ? errors.email : ""}
+        error={emailExists || touched.email && Boolean(errors.email)}
         label="Email"
         value={email}
         onChange={change.bind(null, "email")}

@@ -13,6 +13,7 @@ const registerTransition = React.forwardRef(function Transition(props, ref) {
 function Login() {
   const [loginFormOpen, setLoginFormOpen] = React.useState(true);
   const [registerFormOpen, setRegisterFormOpen] = React.useState(false);
+  const [emailExists, setEmailExists] = React.useState(false);
 
   const openLoginForm = () => {
     setLoginFormOpen(true);
@@ -82,6 +83,9 @@ function Login() {
           // Successfully registered
           localStorage.setItem("token", data.access_token);
           navigate("/");
+        } else if (data.email) {
+          // Email taken
+          setEmailExists(true);
         } else {
           // Invalid information
         }
@@ -172,7 +176,9 @@ function Login() {
             {props => <RegisterForm
                         {...props}
                         closeRegisterForm={closeRegisterForm}
-                        openLoginForm={openLoginForm} />}
+                        openLoginForm={openLoginForm}
+                        emailExists={emailExists}
+                        setEmailExists={setEmailExists} />}
           </Formik>
         </Dialog>
       </div>
