@@ -1,7 +1,7 @@
 import React from "react";
 import { TextField, Button } from "@material-ui/core";
 
-const LoginForm = props => {
+const RegisterForm = props => {
   const {
     values: { email, password },
     errors,
@@ -55,10 +55,10 @@ const LoginForm = props => {
         disabled={!isValid}
         color="primary"
         variant="contained">
-        Log in
+        Register
       </Button>
     </form>
   );
 };
 
-export default LoginForm;
+export default RegisterForm;

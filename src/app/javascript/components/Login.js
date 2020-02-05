@@ -3,10 +3,11 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { navigate } from "@reach/router";
 import LoginForm from "./LoginForm";
-import { Paper } from "@material-ui/core";
+import { Dialog } from "@material-ui/core";
+import RegisterForm from "./RegisterForm";
 
 function Login() {
-  const handleSubmit = values => {
+  const handleLogin = values => {
     const login = async () => {
       const csrfToken = document.querySelector("meta[name=csrf-token]").content;
       fetch("/api/auth/login", {
@@ -35,7 +36,7 @@ function Login() {
     login();
   };
 
-  const validationSchema = Yup.object({
+  const loginValidationSchema = Yup.object({
     email: Yup.string()
               .email("Invalid email")
               .required("Email is required"),
@@ -50,18 +51,48 @@ function Login() {
   };
 
   return (
-    <div className="form-container">
-      <Paper
-        className="form"
-        elevation={4}>
-        <Formik
-          initialValues={values}
-          onSubmit={handleSubmit}
-          validationSchema={validationSchema}>
-          {props => <LoginForm {...props} />}
-        </Formik>
-      </Paper>
-    </div>
+    <React.Fragment>
+      <div className="form-container">
+        <Dialog
+          className="column"
+          open={true}
+          fullWidth={true}
+          maxWidth="sm"
+          scroll="paper"
+          BackdropProps={{
+            style: {
+              backgroundColor: 'transparent'
+            }
+          }}>
+          <Formik
+            initialValues={values}
+            onSubmit={handleLogin}
+            validationSchema={loginValidationSchema}>
+            {props => <LoginForm {...props} />}
+          </Formik>
+        </Dialog>
+      </div>
+      <div className="form-container">
+        <Dialog
+          className="column"
+          open={true}
+          fullWidth={true}
+          maxWidth="sm"
+          scroll="paper"
+          BackdropProps={{
+            style: {
+              backgroundColor: 'transparent'
+            }
+          }}>
+          <Formik
+            initialValues={values}
+            onSubmit={handleLogin}
+            validationSchema={loginValidationSchema}>
+            {props => <RegisterForm {...props} />}
+          </Formik>
+        </Dialog>
+      </div>
+    </React.Fragment>
   );
 }
 

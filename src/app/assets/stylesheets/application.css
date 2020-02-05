@@ -44,16 +44,18 @@ div.form-container {
     top: 50%;
     transform: translate(-50%,-50%);
 
-    height: 50vh;
     width: 50vw;
 }
 
-.form {
-    /* Orientation of elements */
-    display: flex;
-    flex-direction: column;
+.title {
+    font-size: 2.5em;
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 20px;
+}
 
-    height: 100%;
+.form {
+    margin: 20px;
 }
 
 .list {
@@ -108,7 +110,6 @@ div.form-container {
 }
 
 .MuiTextField-root.textfield {
-    margin-top: 20px;
     margin-bottom: 20px;
 }
 
