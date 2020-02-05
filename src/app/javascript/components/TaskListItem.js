@@ -102,7 +102,8 @@ class TaskListItem extends React.Component {
                     <Chip
                       className="tag cursor-pointer"
                       key={index}
-                      label={tag} />
+                      label={tag}
+                      color="primary" />
                   );
                 })}
               </div>

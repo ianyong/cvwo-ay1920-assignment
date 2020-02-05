@@ -157,6 +157,10 @@ div[role="group"][tabindex] {
     margin-bottom: 5px;
 }
 
+.MuiChip-root.overdue {
+    background-color: mistyrose;
+}
+
 .row {
     display: flex;
     flex-direction: row;
