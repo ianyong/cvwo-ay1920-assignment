@@ -1,5 +1,6 @@
 import React from "react";
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@material-ui/core";
+import { navigate } from "@reach/router";
 
 class DeleteTaskDialog extends React.Component {
   constructor(props) {
@@ -17,15 +18,13 @@ class DeleteTaskDialog extends React.Component {
         }
       })
       const { data } = await response.json();
-      if (response.status === 500) {
-        // Not logged in
-        navigate("/login")
-      } else if (response.status === 200) {
+      if (response.status === 200) {
         // Successfully deleted task
         this.props.onClose();
         this.props.refreshTaskList();
       } else {
         // Failed to delete task
+        navigate("/");
       }
     };
     deleteTask();

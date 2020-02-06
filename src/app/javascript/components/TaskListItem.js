@@ -1,4 +1,5 @@
 import React from "react";
+import { navigate } from "@reach/router";
 import clsx from "clsx";
 import { ListItem, Chip, Checkbox } from "@material-ui/core";
 import TaskDetailsDialog from "./TaskDetailsDialog";
@@ -51,14 +52,11 @@ class TaskListItem extends React.Component {
         })
       })
       const { data } = await response.json();
-      if (response.status === 500) {
-        // Not logged in
-        navigate("/login")
-      } else if (response.status === 200) {
+      if (response.status === 200) {
         // Successfully updated task
       } else {
         // Failed to update task
-        console.log(response);
+        navigate("/login");
       }
     };
     this.props.task.attributes['is-completed'] = !this.props.task.attributes['is-completed'];

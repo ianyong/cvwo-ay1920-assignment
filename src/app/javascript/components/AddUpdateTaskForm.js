@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { navigate } from "@reach/router";
 import { TextField, Chip } from "@material-ui/core";
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import { Autocomplete } from "@material-ui/lab";
@@ -37,11 +38,11 @@ const AddUpdateTaskForm = props => {
       }
     })
     const { data } = await response.json();
-    if (response.status === 500) {
+    if (response.status === 200) {
+      setAllTags(data);
+    } else {
       // Not logged in
       navigate("/login")
-    } else {
-      setAllTags(data);
     }
   }
 

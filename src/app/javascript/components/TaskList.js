@@ -45,13 +45,12 @@ class TaskList extends React.Component {
       }
     })
     const { data } = await response.json();
-    if (response.status === 500) {
-      // Not logged in
-      navigate("/login")
-    } else {
+    if (response.status === 200) {
       this.setState({
         tasks: data
       });
+    } else {
+      navigate("/login");
     }
   };
 

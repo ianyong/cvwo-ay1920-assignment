@@ -1,4 +1,5 @@
 import React from  "react";
+import { navigate } from "@reach/router";
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@material-ui/core";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -44,15 +45,13 @@ class AddUpdateTaskDialog extends React.Component {
         })
       })
       const { data } = await response.json();
-      if (response.status === 500) {
-        // Not logged in
-        navigate("/login")
-      } else if (response.status === 200) {
+      if (response.status === 200) {
         // Successfully added task
         this.props.onClose();
         this.props.refreshTaskList();
       } else {
         // Failed to add task
+        navigate("/login");
       }
     };
     addTask();
@@ -75,15 +74,13 @@ class AddUpdateTaskDialog extends React.Component {
         })
       })
       const { data } = await response.json();
-      if (response.status === 500) {
-        // Not logged in
-        navigate("/login")
-      } else if (response.status === 200) {
+      if (response.status === 200) {
         // Successfully updated task
         this.props.onClose();
         this.props.refreshTaskList();
       } else {
         // Failed to update task
+        navigate("/login");
       }
     };
     updateTask();

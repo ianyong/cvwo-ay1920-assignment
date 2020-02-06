@@ -1,4 +1,5 @@
 import React from "react";
+import { navigate } from "@reach/router";
 import { Dialog, DialogTitle, DialogActions, Button, Chip, TextField, DialogContent } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
 
@@ -22,13 +23,12 @@ class TagsDialog extends React.Component {
       }
     })
     const { data } = await response.json();
-    if (response.status === 500) {
-      // Not logged in
-      navigate("/login")
-    } else {
+    if (response.status === 200) {
       this.setState({
         allTags: data
       });
+    } else {
+      navigate("/login");
     }
   }
 
@@ -42,13 +42,12 @@ class TagsDialog extends React.Component {
       }
     })
     const { tags_filter } = await response.json();
-    if (response.status === 500) {
-      // Not logged in
-      navigate("/login")
-    } else {
+    if (response.status === 200) {
       this.setState({
         tagsFilter: tags_filter.split("\u0000").filter(e => e !== "")
       });
+    } else {
+      navigate("/login");
     }
   }
 
@@ -65,14 +64,12 @@ class TagsDialog extends React.Component {
       })
     })
     const { data } = await response.json();
-    if (response.status === 500) {
-      // Not logged in
-      navigate("/login")
-    } else if (response.status === 200) {
+    if (response.status === 200) {
       // Successfully updated tags filter
       this.props.refreshTaskList();
     } else {
       // Failed to update tags filter
+      navigate("/login");
     }
   }
 
