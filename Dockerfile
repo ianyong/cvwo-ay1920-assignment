@@ -25,5 +25,6 @@ RUN apt-get -y update && \
 ADD ./src /
 RUN gem install bundler
 RUN bundle install
+RUN yarn install
 
 CMD bundle exec rails s -p 3000 -b '0.0.0.0'
