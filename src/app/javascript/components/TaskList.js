@@ -8,7 +8,8 @@ class TaskList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tasks: []
+      tasks: [],
+      setUp: false // prevent flashing of "No tasks" before getting response from server
     };
   }
 
@@ -47,7 +48,8 @@ class TaskList extends React.Component {
     const { data } = await response.json();
     if (response.status === 200) {
       this.setState({
-        tasks: data
+        tasks: data,
+        setUp: true
       });
     } else {
       navigate("/login");
@@ -67,7 +69,7 @@ class TaskList extends React.Component {
   }
 
   render() {
-    if (this.state.tasks.length === 0) {
+    if (this.state.tasks.length === 0 && this.state.setUp) {
       this.props.setEmptyDisplay(true);
       return (
         <div className="no-tasks-container">
