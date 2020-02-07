@@ -18,7 +18,8 @@ function Alert(props) {
 function Login() {
   const [registerFormOpen, setRegisterFormOpen] = React.useState(false);
   const [emailExists, setEmailExists] = React.useState(false);
-  const [alertOpen, setAlertOpen] = React.useState(false);
+  const [loginAlertOpen, setLoginAlertOpen] = React.useState(false);
+  const [emailAlertOpen, setEmailAlertOpen] = React.useState(false);
 
   const openRegisterForm = () => {
     setRegisterFormOpen(true);
@@ -29,12 +30,20 @@ function Login() {
     setEmailExists(false);
   };
 
-  const openAlert = () => {
-    setAlertOpen(true);
+  const openLoginAlert = () => {
+    setLoginAlertOpen(true);
   };
 
-  const closeAlert = () => {
-    setAlertOpen(false);
+  const closeLoginAlert = () => {
+    setLoginAlertOpen(false);
+  };
+
+  const openEmailAlert = () => {
+    setEmailAlertOpen(true);
+  };
+
+  const closeEmailAlert = () => {
+    setEmailAlertOpen(false);
   };
 
   const handleLogin = values => {
@@ -60,7 +69,7 @@ function Login() {
           navigate("/");
         } else {
           // Invalid credentials
-          openAlert();
+          openLoginAlert();
         }
       })
     };
@@ -93,6 +102,7 @@ function Login() {
         } else if (data.email) {
           // Email taken
           setEmailExists(true);
+          openEmailAlert();
         } else {
           // Invalid information
         }
@@ -189,13 +199,23 @@ function Login() {
         </Dialog>
       </div>
       <Snackbar
-        open={alertOpen}
+        open={loginAlertOpen}
         autoHideDuration={5000}
-        onClose={closeAlert}>
+        onClose={closeLoginAlert}>
         <Alert
-          onClose={closeAlert}
+          onClose={closeLoginAlert}
           severity="error">
           Invalid credentials
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        open={emailAlertOpen}
+        autoHideDuration={5000}
+        onClose={closeEmailAlert}>
+        <Alert
+          onClose={closeEmailAlert}
+          severity="warning">
+          Email is already in use
         </Alert>
       </Snackbar>
     </React.Fragment>
