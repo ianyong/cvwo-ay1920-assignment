@@ -6,6 +6,8 @@ import TodayIcon from "@material-ui/icons/Today";
 import DateRangeIcon from "@material-ui/icons/DateRange";
 import EventNoteIcon from "@material-ui/icons/EventNote";
 import LabelIcon from "@material-ui/icons/Label";
+import FaceIcon from "@material-ui/icons/Face";
+import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import TagsDialog from "./TagsDialog";
 import LogoutDialog from "./LogoutDialog";
 import MuiAlert from "@material-ui/lab/Alert";
@@ -24,7 +26,8 @@ const Drawer = props => {
     showCompleted,
     setShowCompleted,
     update,
-    refreshTaskList
+    refreshTaskList,
+    userDetails
   } = props;
 
   const styles = makeStyles(theme => ({
@@ -149,6 +152,25 @@ const Drawer = props => {
             <ChevronLeftIcon />
           </IconButton>
         </div>
+        <Divider />
+        <List>
+          <ListItem>
+            <ListItemIcon>
+              <FaceIcon />
+            </ListItemIcon>
+            <ListItemText
+              className="user-details"
+              primary={userDetails.first_name + " " + userDetails.last_name} />
+          </ListItem>
+          <ListItem>
+            <ListItemIcon>
+              <MailOutlineIcon />
+            </ListItemIcon>
+            <ListItemText
+              className="user-details"
+              primary={userDetails.email} />
+          </ListItem>
+        </List>
         <Divider />
         <List>
           <ListItem

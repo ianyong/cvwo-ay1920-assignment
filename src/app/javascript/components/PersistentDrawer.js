@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { navigate } from "@reach/router";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core";
 import AppBar from "./AppBar";
@@ -7,6 +8,8 @@ import TaskList from "./TaskList";
 import Fab from "./Fab";
 
 function PersistentDrawer() {
+  const drawerWidth = 240;
+
   const [open, setOpen] = React.useState(false);
   const [dateRange, setDateRange] = React.useState(localStorage.getItem("date_range_filter") === null
       ? 2 : parseInt(localStorage.getItem("date_range_filter")));
@@ -14,7 +17,10 @@ function PersistentDrawer() {
       ? 0 : parseInt(localStorage.getItem("show_completed")));
   const [update, setUpdate] = React.useState(true); // Dummy state for refreshing component
   const [emptyDisplay, setEmptyDisplay] = React.useState(false);
-  const drawerWidth = 240;
+  const [userDetails, setUserDetails] = React.useState({first_name: "", last_name: "", email: ""});
+
+  // Retrieve user details on mount
+  useEffect(() => { getUserInfo(); }, []);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -27,6 +33,25 @@ function PersistentDrawer() {
   const refreshTaskList = () => {
     setUpdate(!update);
   }
+
+  const getUserInfo = async () => {
+    let token = localStorage.getItem("token");
+    const response = await fetch("/api/users/details", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/vnd.api+json",
+        "Authorization": token
+      }
+    })
+    const { data } = await response.json();
+    if (response.status === 200) {
+      // Successfully retrieved user details
+      setUserDetails(data);
+    } else {
+      // Failed to retrieve user details
+      navigate("/login");
+    }
+  };
 
   const styles = makeStyles(theme => ({
     root: {
@@ -76,7 +101,8 @@ function PersistentDrawer() {
         showCompleted={showCompleted}
         setShowCompleted={setShowCompleted}
         update={update}
-        refreshTaskList={refreshTaskList} />
+        refreshTaskList={refreshTaskList}
+        userDetails={userDetails} />
       <main
         className={clsx(styles.content, {
           [styles.contentShift]: open,

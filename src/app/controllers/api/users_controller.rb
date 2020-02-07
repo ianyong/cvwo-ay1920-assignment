@@ -32,6 +32,17 @@ class Api::UsersController < ApiController
     render json: { tags_filter: context[:current_user].tags_filter.gsub("\u001F", "\u0000") }, status: 200
   end
 
+  def get_user_details
+    @user = context[:current_user]
+    render json: {
+      data: {
+        first_name: @user.first_name,
+        last_name: @user.last_name,
+        email: @user.email
+      }
+    }, status: 200
+  end
+
   private
 
   def authenticate(email, password)

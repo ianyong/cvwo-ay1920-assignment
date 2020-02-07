@@ -196,3 +196,7 @@ div[role="group"][tabindex] {
     height: 37px;
     overflow-y: hidden;
 }
+
+.user-details {
+    overflow-wrap: break-word;
+}
