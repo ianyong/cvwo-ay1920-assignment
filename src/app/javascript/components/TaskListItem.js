@@ -94,7 +94,7 @@ class TaskListItem extends React.Component {
                 icon={<DateRangeIcon />}
                 label={moment(this.props.task.attributes['due-date']).format('D MMMM YYYY')}
                 variant="outlined" />
-              <div>
+              <div className="tags-chip-group">
                 {this.props.task.attributes['tag-list'].split("\u0000").sort().filter(e => e !== "").map((tag, index) => {
                   return(
                     <Chip

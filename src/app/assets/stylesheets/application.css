@@ -191,3 +191,8 @@ div[role="group"][tabindex] {
 .cursor-pointer {
     cursor: pointer !important;
 }
+
+.tags-chip-group {
+    height: 37px;
+    overflow-y: hidden;
+}
