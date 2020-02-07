@@ -40,7 +40,7 @@ const AddUpdateTaskForm = props => {
     })
     const { data } = await response.json();
     if (response.status === 200) {
-      setAllTags(data);
+      setAllTags(data.sort((x, y) => x.attributes.name > y.attributes.name));
     } else {
       // Not logged in
       navigate("/login")

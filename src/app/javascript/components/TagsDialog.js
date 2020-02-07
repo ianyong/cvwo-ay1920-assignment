@@ -25,7 +25,7 @@ class TagsDialog extends React.Component {
     const { data } = await response.json();
     if (response.status === 200) {
       this.setState({
-        allTags: data
+        allTags: data.sort((x, y) => x.attributes.name > y.attributes.name)
       });
     } else {
       navigate("/login");
