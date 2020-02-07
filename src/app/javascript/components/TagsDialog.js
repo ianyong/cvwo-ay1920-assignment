@@ -78,6 +78,13 @@ class TagsDialog extends React.Component {
     this.requestTagsFilter();
   }
 
+  componentDidUpdate(prevProps) {
+    // Update all tags whenever a task is updated
+    if (this.props.update != prevProps.update) {
+      this.requestAllTags();
+    }
+  }
+
   handleTagChange(event, tags) {
     this.setState({
       tagsFilter: tags

@@ -18,6 +18,7 @@ const Drawer = props => {
     setDateRange,
     showCompleted,
     setShowCompleted,
+    update,
     refreshTaskList
   } = props;
 
@@ -157,6 +158,7 @@ const Drawer = props => {
       <TagsDialog
         open={tagsDialogOpen}
         onClose={closeTagsDialog}
+        update={update}
         refreshTaskList={refreshTaskList} />
       <LogoutDialog
         open={logoutDialogOpen}
