@@ -18,8 +18,6 @@ class Api::TasksController < ApiController
     @task.update(task_params)
     if @task.save
       if params.has_key?(:tag_list)
-        puts "hello"
-        puts params[:tag_list].inspect
         @task.set_tag_list(params[:tag_list], context[:current_user].id)
       end
       render json: @task, status: 200
