@@ -1,4 +1,8 @@
 Rails.application.configure do
+  # Whitelist domain name
+  config.hosts << "todo.ianyong.com"
+  config.hosts << "cvwo-todo-task-manager.herokuapp.com"
+  
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
