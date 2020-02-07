@@ -1,5 +1,5 @@
 import React from "react";
-import { Drawer as MaterialDrawer, makeStyles, IconButton, Divider, List, ListItem, ListItemText, ListItemIcon, FormControlLabel, Switch } from "@material-ui/core";
+import { Drawer as MaterialDrawer, makeStyles, IconButton, Divider, List, ListItem, ListItemText, ListItemIcon, FormControlLabel, Switch, Snackbar } from "@material-ui/core";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import TodayIcon from "@material-ui/icons/Today";
@@ -8,6 +8,11 @@ import EventNoteIcon from "@material-ui/icons/EventNote";
 import LabelIcon from "@material-ui/icons/Label";
 import TagsDialog from "./TagsDialog";
 import LogoutDialog from "./LogoutDialog";
+import MuiAlert from "@material-ui/lab/Alert";
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const Drawer = props => {
   const {
@@ -42,6 +47,7 @@ const Drawer = props => {
 
   const [tagsDialogOpen, setTagsDialogOpen] = React.useState(false);
   const [logoutDialogOpen, setLogoutDialogOpen] = React.useState(false);
+  const [alertOpen, setAlertOpen] = React.useState(false);
 
   const openTagsDialog = () => {
     setTagsDialogOpen(true);
@@ -59,6 +65,14 @@ const Drawer = props => {
     setLogoutDialogOpen(false);
   };
 
+  const openAlert = () => {
+    setAlertOpen(true);
+  };
+
+  const closeAlert = () => {
+    setAlertOpen(false);
+  };
+
   const handleDateRangeSelection = (event, index) => {
     localStorage.setItem("date_range_filter", index);
     setDateRange(index);
@@ -68,6 +82,7 @@ const Drawer = props => {
     let value = showCompleted === 0 ? 1 :0;
     localStorage.setItem("show_completed", value);
     setShowCompleted(value);
+    openAlert();
   };
 
   return (
@@ -163,6 +178,16 @@ const Drawer = props => {
       <LogoutDialog
         open={logoutDialogOpen}
         onClose={closeLogoutDialog} />
+      <Snackbar
+        open={alertOpen}
+        autoHideDuration={2000}
+        onClose={closeAlert}>
+        <Alert
+          onClose={closeAlert}
+          severity="info">
+          {showCompleted ? "Showing past completed tasks" : "Hiding past completed tasks"}
+        </Alert>
+      </Snackbar>
     </React.Fragment>
   );
 }
