@@ -47,7 +47,11 @@ const Drawer = props => {
 
   const [tagsDialogOpen, setTagsDialogOpen] = React.useState(false);
   const [logoutDialogOpen, setLogoutDialogOpen] = React.useState(false);
-  const [alertOpen, setAlertOpen] = React.useState(false);
+  const [showPastAlertOpen, setShowPastAlertOpen] = React.useState(false);
+  const [hidePastAlertOpen, setHidePastAlertOpen] = React.useState(false);
+  const [dateTodayAlertOpen, setDateTodayAlertOpen] = React.useState(false);
+  const [dateWeekAlertOpen, setDateWeekAlertOpen] = React.useState(false);
+  const [dateAllAlertOpen, setDateAllAlertOpen] = React.useState(false);
 
   const openTagsDialog = () => {
     setTagsDialogOpen(true);
@@ -65,24 +69,67 @@ const Drawer = props => {
     setLogoutDialogOpen(false);
   };
 
-  const openAlert = () => {
-    setAlertOpen(true);
+  const openShowPastAlert = () => {
+    setShowPastAlertOpen(true);
   };
 
-  const closeAlert = () => {
-    setAlertOpen(false);
+  const closeShowPastAlert = () => {
+    setShowPastAlertOpen(false);
+  };
+
+  const openHidePastAlert = () => {
+    setHidePastAlertOpen(true);
+  };
+
+  const closeHidePastAlert = () => {
+    setHidePastAlertOpen(false);
+  };
+
+  const openDateTodayAlert = () => {
+    setDateTodayAlertOpen(true);
+  };
+
+  const closeDateTodayAlert = () => {
+    setDateTodayAlertOpen(false);
+  };
+
+  const openDateWeekAlert = () => {
+    setDateWeekAlertOpen(true);
+  };
+
+  const closeDateWeekAlert = () => {
+    setDateWeekAlertOpen(false);
+  };
+
+  const openDateAllAlert = () => {
+    setDateAllAlertOpen(true);
+  };
+
+  const closeDateAllAlert = () => {
+    setDateAllAlertOpen(false);
   };
 
   const handleDateRangeSelection = (event, index) => {
     localStorage.setItem("date_range_filter", index);
     setDateRange(index);
+    switch (index) {
+      case 0:
+        openDateTodayAlert();
+        break;
+      case 1:
+        openDateWeekAlert();
+        break;
+      case 2:
+        openDateAllAlert();
+        break;
+    }
   };
 
   const toggleShowCompletedTasks = (event) => {
     let value = showCompleted === 0 ? 1 :0;
     localStorage.setItem("show_completed", value);
     setShowCompleted(value);
-    openAlert();
+    showCompleted ? openShowPastAlert() : openHidePastAlert();
   };
 
   return (
@@ -179,13 +226,53 @@ const Drawer = props => {
         open={logoutDialogOpen}
         onClose={closeLogoutDialog} />
       <Snackbar
-        open={alertOpen}
+        open={dateTodayAlertOpen}
         autoHideDuration={2000}
-        onClose={closeAlert}>
+        onClose={closeDateTodayAlert}>
         <Alert
-          onClose={closeAlert}
+          onClose={closeDateTodayAlert}
           severity="info">
-          {showCompleted ? "Showing past completed tasks" : "Hiding past completed tasks"}
+          Showing tasks due today
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        open={dateWeekAlertOpen}
+        autoHideDuration={2000}
+        onClose={closeDateWeekAlert}>
+        <Alert
+          onClose={closeDateWeekAlert}
+          severity="info">
+          Showing tasks due in a week
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        open={dateAllAlertOpen}
+        autoHideDuration={2000}
+        onClose={closeDateAllAlert}>
+        <Alert
+          onClose={closeDateAllAlert}
+          severity="info">
+          Showing all tasks
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        open={showPastAlertOpen}
+        autoHideDuration={2000}
+        onClose={closeShowPastAlert}>
+        <Alert
+          onClose={closeShowPastAlert}
+          severity="info">
+          Showing past completed tasks
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        open={hidePastAlertOpen}
+        autoHideDuration={2000}
+        onClose={closeHidePastAlert}>
+        <Alert
+          onClose={closeHidePastAlert}
+          severity="info">
+          Hiding past completed tasks
         </Alert>
       </Snackbar>
     </React.Fragment>
