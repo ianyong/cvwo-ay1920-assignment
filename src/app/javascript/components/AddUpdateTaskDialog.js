@@ -1,9 +1,14 @@
 import React from  "react";
 import { navigate } from "@reach/router";
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@material-ui/core";
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Snackbar } from "@material-ui/core";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import AddUpdateTaskForm from "./AddUpdateTaskForm";
+import MuiAlert from "@material-ui/lab/Alert";
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 class AddUpdateTaskDialog extends React.Component {
   constructor(props) {
@@ -14,11 +19,14 @@ class AddUpdateTaskDialog extends React.Component {
     this.setSelectedDate = this.setSelectedDate.bind(this);
     this.setAllTags = this.setAllTags.bind(this);
     this.setSelectedTags = this.setSelectedTags.bind(this);
+    this.openAddAlert = this.openAddAlert.bind(this);
+    this.closeAddAlert = this.closeAddAlert.bind(this);
     this.state = {
       buttonEnabled: false,
       selectedDate: new Date(),
       allTags: [],
-      selectedTags: []
+      selectedTags: [],
+      addAlertOpen: false
     };
   }
 
@@ -56,6 +64,18 @@ class AddUpdateTaskDialog extends React.Component {
     });
   }
 
+  openAddAlert() {
+    this.setState({
+      addAlertOpen: true
+    });
+  }
+
+  closeAddAlert() {
+    this.setState({
+      addAlertOpen: false
+    });
+  }
+
   handleSubmit = () => {
     const addTask = async () => {
       let token = localStorage.getItem("token");
@@ -77,6 +97,7 @@ class AddUpdateTaskDialog extends React.Component {
         // Successfully added task
         this.props.onClose();
         this.props.refreshTaskList();
+        this.openAddAlert();
       } else {
         // Failed to add task
         navigate("/login");
@@ -106,6 +127,7 @@ class AddUpdateTaskDialog extends React.Component {
         // Successfully updated task
         this.props.onClose();
         this.props.refreshTaskList();
+        this.props.openEditAlert();
       } else {
         // Failed to update task
         navigate("/login");
@@ -139,45 +161,57 @@ class AddUpdateTaskDialog extends React.Component {
 
   render() {
     return (
-      <Dialog
-        open={this.props.open}
-        fullWidth={true}
-        maxWidth="md"
-        scroll="paper">
-        <DialogTitle>
-          {this.props.task ? "Edit task" : "Add task"}
-        </DialogTitle>
-        <DialogContent>
-          <Formik
-            initialValues={this.initialValues}
-            validationSchema={this.validationSchema}
-            validateOnMount="true">
-            {props => <AddUpdateTaskForm
-                        {...props}
-                        state={this.state}
-                        enableButton={this.enableButton}
-                        disableButton={this.disableButton}
-                        updateValues={this.updateValues}
-                        setSelectedDate={this.setSelectedDate}
-                        setAllTags={this.setAllTags}
-                        setSelectedTags={this.setSelectedTags} />}
-          </Formik>
-        </DialogContent>
-        <DialogActions>
-          <Button
-            autoFocus
-            onClick={this.props.task ? this.handleUpdate : this.handleSubmit}
-            color="secondary"
-            disabled={!this.state.buttonEnabled}>
-            {this.props.task ? "Update" : "Add"}
-          </Button>
-          <Button
-            onClick={this.props.onClose}
-            color="primary">
-            Cancel
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <React.Fragment>
+        <Dialog
+          open={this.props.open}
+          fullWidth={true}
+          maxWidth="md"
+          scroll="paper">
+          <DialogTitle>
+            {this.props.task ? "Edit task" : "Add task"}
+          </DialogTitle>
+          <DialogContent>
+            <Formik
+              initialValues={this.initialValues}
+              validationSchema={this.validationSchema}
+              validateOnMount="true">
+              {props => <AddUpdateTaskForm
+                          {...props}
+                          state={this.state}
+                          enableButton={this.enableButton}
+                          disableButton={this.disableButton}
+                          updateValues={this.updateValues}
+                          setSelectedDate={this.setSelectedDate}
+                          setAllTags={this.setAllTags}
+                          setSelectedTags={this.setSelectedTags} />}
+            </Formik>
+          </DialogContent>
+          <DialogActions>
+            <Button
+              autoFocus
+              onClick={this.props.task ? this.handleUpdate : this.handleSubmit}
+              color="secondary"
+              disabled={!this.state.buttonEnabled}>
+              {this.props.task ? "Update" : "Add"}
+            </Button>
+            <Button
+              onClick={this.props.onClose}
+              color="primary">
+              Cancel
+            </Button>
+          </DialogActions>
+        </Dialog>
+        <Snackbar
+          open={this.state.addAlertOpen}
+          autoHideDuration={2000}
+          onClose={this.closeAddAlert}>
+          <Alert
+            onClose={this.closeAddAlert}
+            severity="success">
+            Successfully added task
+          </Alert>
+        </Snackbar>
+      </React.Fragment>
     );
   }
 }

@@ -1,11 +1,16 @@
 import React from "react";
-import { Dialog, DialogTitle, DialogActions, Button, DialogContent, Chip } from "@material-ui/core";
+import { Dialog, DialogTitle, DialogActions, Button, DialogContent, Chip, Snackbar } from "@material-ui/core";
 import AddUpdateTaskDialog from "./AddUpdateTaskDialog";
 import DeleteTaskDialog from "./DeleteTaskDialog";
 import DateRangeOutlinedIcon from "@material-ui/icons/DateRangeOutlined";
 import DescriptionOutlinedIcon from "@material-ui/icons/DescriptionOutlined";
 import LabelOutlinedIcon from "@material-ui/icons/LabelOutlined";
 import moment from "moment";
+import MuiAlert from "@material-ui/lab/Alert";
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 class TaskDetailsDialog extends React.Component {
   constructor(props) {
@@ -14,9 +19,12 @@ class TaskDetailsDialog extends React.Component {
     this.closeEditDialog = this.closeEditDialog.bind(this);
     this.openDeleteDialog = this.openDeleteDialog.bind(this);
     this.closeDeleteDialog = this.closeDeleteDialog.bind(this);
+    this.openEditAlert = this.openEditAlert.bind(this);
+    this.closeEditAlert = this.closeEditAlert.bind(this);
     this.state = {
       editDialogOpen: false,
-      deleteDialogOpen: false
+      deleteDialogOpen: false,
+      editAlertOpen: false
     };
   }
 
@@ -41,6 +49,18 @@ class TaskDetailsDialog extends React.Component {
   closeDeleteDialog() {
     this.setState({
       deleteDialogOpen: false
+    });
+  }
+
+  openEditAlert() {
+    this.setState({
+      editAlertOpen: true
+    });
+  }
+
+  closeEditAlert() {
+    this.setState({
+      editAlertOpen: false
     });
   }
   
@@ -117,12 +137,23 @@ class TaskDetailsDialog extends React.Component {
           task={this.props.task}
           open={this.state.editDialogOpen}
           onClose={this.closeEditDialog}
-          refreshTaskList={this.props.refreshTaskList} />
+          refreshTaskList={this.props.refreshTaskList}
+          openEditAlert={this.openEditAlert} />
         <DeleteTaskDialog
           task={this.props.task}
           open={this.state.deleteDialogOpen}
           onClose={this.closeDeleteDialog}
           refreshTaskList={this.props.refreshTaskList} />
+        <Snackbar
+          open={this.state.editAlertOpen}
+          autoHideDuration={2000}
+          onClose={this.closeEditAlert}>
+          <Alert
+            onClose={this.closeEditAlert}
+            severity="success">
+            Successfully edited task
+          </Alert>
+        </Snackbar>
       </React.Fragment>
     );
   }
