@@ -11,8 +11,14 @@ class AddUpdateTaskDialog extends React.Component {
     this.enableButton = this.enableButton.bind(this);
     this.disableButton = this.disableButton.bind(this);
     this.updateValues = this.updateValues.bind(this);
+    this.setSelectedDate = this.setSelectedDate.bind(this);
+    this.setAllTags = this.setAllTags.bind(this);
+    this.setSelectedTags = this.setSelectedTags.bind(this);
     this.state = {
       buttonEnabled: false,
+      selectedDate: new Date(),
+      allTags: [],
+      selectedTags: []
     };
   }
 
@@ -23,8 +29,30 @@ class AddUpdateTaskDialog extends React.Component {
   }
 
   disableButton() {
+    // Reset form
     this.setState({
-      buttonEnabled: false
+      buttonEnabled: false,
+      selectedDate: new Date(),
+      allTags: [],
+      selectedTags: []
+    });
+  }
+
+  setSelectedDate(date) {
+    this.setState({
+      selectedDate: date
+    });
+  }
+
+  setAllTags(tags) {
+    this.setState({
+      allTags: tags
+    });
+  }
+
+  setSelectedTags(tags) {
+    this.setState({
+      selectedTags: tags
     });
   }
 
@@ -126,9 +154,13 @@ class AddUpdateTaskDialog extends React.Component {
             validateOnMount="true">
             {props => <AddUpdateTaskForm
                         {...props}
+                        state={this.state}
                         enableButton={this.enableButton}
                         disableButton={this.disableButton}
-                        updateValues={this.updateValues} />}
+                        updateValues={this.updateValues}
+                        setSelectedDate={this.setSelectedDate}
+                        setAllTags={this.setAllTags}
+                        setSelectedTags={this.setSelectedTags} />}
           </Formik>
         </DialogContent>
         <DialogActions>

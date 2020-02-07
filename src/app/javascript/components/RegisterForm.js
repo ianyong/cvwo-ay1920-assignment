@@ -11,7 +11,6 @@ const RegisterForm = props => {
     isValid,
     setFieldTouched,
     closeRegisterForm,
-    openLoginForm,
     emailExists,
     setEmailExists
   } = props;

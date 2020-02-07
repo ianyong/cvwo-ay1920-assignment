@@ -10,23 +10,24 @@ const AddUpdateTaskForm = props => {
     values: {
       name,
       description,
-      due_date,
-      tags
+    },
+    state: {
+      selectedDate,
+      allTags,
+      selectedTags
     },
     errors,
     touched,
-    handleSubmit,
     handleChange,
     isValid,
     setFieldTouched,
     enableButton,
     disableButton,
+    setSelectedDate,
+    setAllTags,
+    setSelectedTags,
     updateValues
   } = props;
-
-  const [selectedDate, setSelectedDate] = React.useState(due_date);
-  const [allTags, setAllTags] = React.useState([]);
-  const [selectedTags, setSelectedTags] = React.useState([]);
 
   const requestAllTags = async () => {
     let token = localStorage.getItem("token");
