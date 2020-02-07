@@ -3,16 +3,22 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { navigate } from "@reach/router";
 import LoginForm from "./LoginForm";
-import { Dialog, Slide } from "@material-ui/core";
+import { Dialog, Slide, Snackbar } from "@material-ui/core";
+import MuiAlert from "@material-ui/lab/Alert";
 import RegisterForm from "./RegisterForm";
 
 const registerTransition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="left" ref={ref} {...props} />;
 });
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 function Login() {
   const [registerFormOpen, setRegisterFormOpen] = React.useState(false);
   const [emailExists, setEmailExists] = React.useState(false);
+  const [alertOpen, setAlertOpen] = React.useState(false);
 
   const openRegisterForm = () => {
     setRegisterFormOpen(true);
@@ -21,6 +27,14 @@ function Login() {
   const closeRegisterForm = () => {
     setRegisterFormOpen(false);
     setEmailExists(false);
+  };
+
+  const openAlert = () => {
+    setAlertOpen(true);
+  };
+
+  const closeAlert = () => {
+    setAlertOpen(false);
   };
 
   const handleLogin = values => {
@@ -46,6 +60,7 @@ function Login() {
           navigate("/");
         } else {
           // Invalid credentials
+          openAlert();
         }
       })
     };
@@ -173,6 +188,16 @@ function Login() {
           </Formik>
         </Dialog>
       </div>
+      <Snackbar
+        open={alertOpen}
+        autoHideDuration={5000}
+        onClose={closeAlert}>
+        <Alert
+          onClose={closeAlert}
+          severity="error">
+          Invalid credentials
+        </Alert>
+      </Snackbar>
     </React.Fragment>
   );
 }
