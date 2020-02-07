@@ -1,16 +1,36 @@
 import React from "react";
 import { navigate } from "@reach/router";
-import { Dialog, DialogTitle, DialogActions, Button, Chip, TextField, DialogContent } from "@material-ui/core";
+import { Dialog, DialogTitle, DialogActions, Button, Chip, TextField, DialogContent, Snackbar } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
+import MuiAlert from "@material-ui/lab/Alert";
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 class TagsDialog extends React.Component {
   constructor(props) {
     super(props);
     this.handleTagChange = this.handleTagChange.bind(this);
+    this.openAlert = this.openAlert.bind(this);
+    this.closeAlert = this.closeAlert.bind(this);
     this.state = {
       allTags: [],
-      tagsFilter: []
+      tagsFilter: [],
+      alertOpen: false
     };
+  }
+
+  openAlert() {
+    this.setState({
+      alertOpen: true
+    });
+  }
+
+  closeAlert() {
+    this.setState({
+      alertOpen: false
+    });
   }
 
   requestAllTags = async () => {
@@ -93,45 +113,57 @@ class TagsDialog extends React.Component {
 
   render() {
     return (
-      <Dialog
-        open={this.props.open}
-        onClose={() => { this.props.onClose(); this.setTagsFilter(); }}
-        fullWidth={true}
-        maxWidth="md"
-        scroll="paper">
-        <DialogTitle>
-          Tags
-        </DialogTitle>
-        <DialogContent>
-          <Autocomplete
-            multiple
-            id="tags-filter"
-            value={this.state.tagsFilter}
-            options={this.state.allTags.map(option => option.attributes.name)}
-            filter={Autocomplete.fuzzyFilter}
-            renderTags={(value, getTagProps) =>
-              value.map((option, index) => (
-                <Chip variant="outlined" label={option} {...getTagProps({ index })} />
-              ))
-            }
-            renderInput={params => (
-              <TextField
-                {...params}
-                variant="outlined"
-                label="Filter"
-                fullWidth />
-            )}
-            onChange={this.handleTagChange} />
-        </DialogContent>
-        <DialogActions>
-          <Button
-            autoFocus
-            onClick={() => { this.props.onClose(); this.setTagsFilter(); }}
-            color="primary">
-            Close
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <React.Fragment>
+        <Dialog
+          open={this.props.open}
+          onClose={() => { this.props.onClose(); this.setTagsFilter(); }}
+          fullWidth={true}
+          maxWidth="md"
+          scroll="paper">
+          <DialogTitle>
+            Tags
+          </DialogTitle>
+          <DialogContent>
+            <Autocomplete
+              multiple
+              id="tags-filter"
+              value={this.state.tagsFilter}
+              options={this.state.allTags.map(option => option.attributes.name)}
+              filter={Autocomplete.fuzzyFilter}
+              renderTags={(value, getTagProps) =>
+                value.map((option, index) => (
+                  <Chip variant="outlined" label={option} {...getTagProps({ index })} />
+                ))
+              }
+              renderInput={params => (
+                <TextField
+                  {...params}
+                  variant="outlined"
+                  label="Filter"
+                  fullWidth />
+              )}
+              onChange={this.handleTagChange} />
+          </DialogContent>
+          <DialogActions>
+            <Button
+              autoFocus
+              onClick={() => { this.props.onClose(); this.setTagsFilter(); this.openAlert(); }}
+              color="primary">
+              Close
+            </Button>
+          </DialogActions>
+        </Dialog>
+        <Snackbar
+          open={this.state.alertOpen}
+          autoHideDuration={2000}
+          onClose={this.closeAlert}>
+          <Alert
+            onClose={this.closeAlert}
+            severity="success">
+            Tag filters updated
+          </Alert>
+        </Snackbar>
+      </React.Fragment>
     );
   }
 }
