@@ -1,9 +1,14 @@
 import React from "react";
 import { navigate } from "@reach/router";
-import { Dialog, DialogTitle, DialogActions, DialogContent, Button } from "@material-ui/core";
+import { Dialog, DialogTitle, DialogActions, DialogContent, Button, Snackbar } from "@material-ui/core";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import UpdateUserDetailsForm from "./UpdateUserDetailsForm";
+import MuiAlert from "@material-ui/lab/Alert";
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 class UpdateUserDetailsDialog extends React.Component {
   constructor(props) {
@@ -13,11 +18,20 @@ class UpdateUserDetailsDialog extends React.Component {
     this.setWrongPassword = this.setWrongPassword.bind(this);
     this.setEmailExists = this.setEmailExists.bind(this);
     this.setUserDetails = this.setUserDetails.bind(this);
+    this.openWrongPasswordAlert = this.openWrongPasswordAlert.bind(this);
+    this.closeWrongPasswordAlert = this.closeWrongPasswordAlert.bind(this);
+    this.openEmailExistsAlert = this.openEmailExistsAlert.bind(this);
+    this.closeEmailExistsAlert = this.closeEmailExistsAlert.bind(this);
+    this.openSuccessAlert = this.openSuccessAlert.bind(this);
+    this.closeSuccessAlert = this.closeSuccessAlert.bind(this);
     this.state = {
       buttonEnabled: false,
       wrongPassword: false,
       emailExists: false,
-      userDetails: {}
+      userDetails: {},
+      wrongPasswordAlertOpen: false,
+      emailExistsAlertOpen: false,
+      successAlertOpen: false
     };
   }
 
@@ -51,6 +65,42 @@ class UpdateUserDetailsDialog extends React.Component {
     });
   }
 
+  openWrongPasswordAlert() {
+    this.setState({
+      wrongPasswordAlertOpen: true
+    });
+  }
+
+  closeWrongPasswordAlert() {
+    this.setState({
+      wrongPasswordAlertOpen: false
+    });
+  }
+
+  openEmailExistsAlert() {
+    this.setState({
+      emailExistsAlertOpen: true
+    });
+  }
+
+  closeEmailExistsAlert() {
+    this.setState({
+      emailExistsAlertOpen: false
+    });
+  }
+
+  openSuccessAlert() {
+    this.setState({
+      successAlertOpen: true
+    });
+  }
+
+  closeSuccessAlert() {
+    this.setState({
+      successAlertOpen: false
+    });
+  }
+
   handleUpdate = () => {
     const updateTask = async () => {
       let token = localStorage.getItem("token");
@@ -71,14 +121,17 @@ class UpdateUserDetailsDialog extends React.Component {
       if (response.status === 200) {
         // Successfully updated user details
         this.props.onClose();
+        this.openSuccessAlert();
         this.props.getUserInfo();
       } else if (response.status === 400) {
         if (error === "Invalid password") {
           // Invalid password
           this.setWrongPassword(true);
+          this.openWrongPasswordAlert();
         } else if (error === "Unable to save user details") {
           // Email already in use
           this.setEmailExists(true);
+          this.openEmailExistsAlert();
         }
       } else {
         navigate("/login");
@@ -156,6 +209,36 @@ class UpdateUserDetailsDialog extends React.Component {
             </Button>
           </DialogActions>
         </Dialog>
+        <Snackbar
+          open={this.state.wrongPasswordAlertOpen}
+          autoHideDuration={2000}
+          onClose={this.closeWrongPasswordAlert}>
+          <Alert
+            onClose={this.closeWrongPasswordAlert}
+            severity="error">
+            Current password is invalid
+          </Alert>
+        </Snackbar>
+        <Snackbar
+          open={this.state.emailExistsAlertOpen}
+          autoHideDuration={2000}
+          onClose={this.closeEmailExistsAlert}>
+          <Alert
+            onClose={this.closeEmailExistsAlert}
+            severity="warning">
+            Email is already in use
+          </Alert>
+        </Snackbar>
+        <Snackbar
+          open={this.state.successAlertOpen}
+          autoHideDuration={2000}
+          onClose={this.closeSuccessAlert}>
+          <Alert
+            onClose={this.closeSuccessAlert}
+            severity="success">
+            Successfully updated user account details
+          </Alert>
+        </Snackbar>
       </React.Fragment>
     );
   }
