@@ -101,7 +101,9 @@ class TaskDetailsDialog extends React.Component {
                 <DescriptionOutlinedIcon
                   className="icon-right-padding"
                   color="primary" />
-                {this.props.task.attributes.description}
+                <div className="column">
+                  {this.props.task.attributes.description.split('\n').map((line, i) => <div key={i}>{line}</div>)}
+                </div>
               </div>
               <div className="row details-top-padding">
                 <LabelOutlinedIcon
