@@ -23,7 +23,7 @@ class AddUpdateTaskDialog extends React.Component {
     this.closeAddAlert = this.closeAddAlert.bind(this);
     this.state = {
       buttonEnabled: false,
-      selectedDate: new Date(),
+      selectedDate: this.props.task ? this.props.task.attributes['due-date'] : new Date(),
       allTags: [],
       selectedTags: [],
       addAlertOpen: false
