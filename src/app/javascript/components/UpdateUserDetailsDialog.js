@@ -68,15 +68,14 @@ class UpdateUserDetailsDialog extends React.Component {
         })
       })
       const { error } = await response.json();
-      console.log(error);
       if (response.status === 200) {
         // Successfully updated user details
         this.props.onClose();
       } else if (response.status === 400) {
-        if (response.error === "Invalid password") {
+        if (error === "Invalid password") {
           // Invalid password
           this.setWrongPassword(true);
-        } else if (response.error === "Unable to save user details") {
+        } else if (error === "Unable to save user details") {
           // Email already in use
           this.setEmailExists(true);
         }

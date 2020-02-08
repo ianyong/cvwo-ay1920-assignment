@@ -29,7 +29,7 @@ const UpdateUserDetailsForm = props => {
     setFieldTouched(name, true, false);
     if (name == "email" && emailExists) {
       setEmailExists(false);
-    } else if (name == "currentPassword" && emailExists) {
+    } else if (name == "currentPassword" && wrongPassword) {
       setWrongPassword(false);
     }
   };
