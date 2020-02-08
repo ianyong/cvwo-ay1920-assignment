@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     get 'users/filters', to: 'users#get_filters'
     post 'users/details', to: 'users#update_user_details'
     get 'users/details', to: 'users#get_user_details'
+    post 'users/password', to: 'users#update_password'
     jsonapi_resources :tasks
     jsonapi_resources :tags
   end

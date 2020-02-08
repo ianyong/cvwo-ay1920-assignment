@@ -9,8 +9,10 @@ import LabelIcon from "@material-ui/icons/Label";
 import FaceIcon from "@material-ui/icons/Face";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import TagsDialog from "./TagsDialog";
 import UpdateUserDetailsDialog from "./UpdateUserDetailsDialog";
+import UpdatePasswordDialog from "./UpdatePasswordDialog";
 import LogoutDialog from "./LogoutDialog";
 import MuiAlert from "@material-ui/lab/Alert";
 
@@ -55,6 +57,7 @@ const Drawer = props => {
   const [logoutDialogOpen, setLogoutDialogOpen] = React.useState(false);
   const [userDetailsDialogOpen, setUserDetailsDialogOpen] = React.useState(false);
   const [refreshUserDetailsForm, setRefreshUserDetailsForm] = React.useState(false);
+  const [passwordDialogOpen, setPasswordDialogOpen] = React.useState(false);
   const [showPastAlertOpen, setShowPastAlertOpen] = React.useState(false);
   const [hidePastAlertOpen, setHidePastAlertOpen] = React.useState(false);
   const [dateTodayAlertOpen, setDateTodayAlertOpen] = React.useState(false);
@@ -88,6 +91,14 @@ const Drawer = props => {
 
   const toggleRefreshUserDetailsForm = () => {
     setRefreshUserDetailsForm(!refreshUserDetailsForm);
+  };
+
+  const openPasswordDialog = () => {
+    setPasswordDialogOpen(true);
+  };
+
+  const closePasswordDialog = () => {
+    setPasswordDialogOpen(false);
   };
 
   const openShowPastAlert = () => {
@@ -257,6 +268,15 @@ const Drawer = props => {
           </ListItem>
           <ListItem
             button
+            onClick={openPasswordDialog}>
+            <ListItemIcon>
+              <VpnKeyIcon />
+            </ListItemIcon>
+            <ListItemText
+              primary="Edit password" />
+          </ListItem>
+          <ListItem
+            button
             onClick={openLogoutDialog}>
             <ListItemIcon>
               <ExitToAppIcon />
@@ -277,6 +297,9 @@ const Drawer = props => {
         userDetails={userDetails}
         refreshUserDetailsForm={refreshUserDetailsForm}
         getUserInfo={getUserInfo} />
+      <UpdatePasswordDialog
+        open={passwordDialogOpen}
+        onClose={closePasswordDialog} />
       <LogoutDialog
         open={logoutDialogOpen}
         onClose={closeLogoutDialog} />

@@ -61,6 +61,22 @@ class Api::UsersController < ApiController
     end
   end
 
+  def update_password
+    @user = context[:current_user]
+
+    command = AuthenticateUser.call(@user.email, params[:current_password])
+    if command.success?
+      @user.password = params[:new_password]
+      if @user.save
+        render json: { message: "Successfully updated password" }, status: 200
+      else
+        render json: { error: "Unable to save password" }, status: 400
+      end
+    else
+      render json: { error: "Invalid password" }, status: 400
+    end
+  end
+
   private
 
   def authenticate(email, password)
