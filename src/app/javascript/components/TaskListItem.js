@@ -112,7 +112,8 @@ class TaskListItem extends React.Component {
           task={this.props.task}
           open={this.state.dialogOpen}
           onClose={this.closeDialog}
-          refreshTaskList={this.props.refreshTaskList} />
+          refreshTaskList={this.props.refreshTaskList}
+          openDeleteAlert={this.props.openDeleteAlert} />
       </React.Fragment>
     );
   }

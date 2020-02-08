@@ -1,32 +1,10 @@
 import React from "react";
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Snackbar } from "@material-ui/core";
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@material-ui/core";
 import { navigate } from "@reach/router";
-import MuiAlert from "@material-ui/lab/Alert";
-
-function Alert(props) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
 
 class DeleteTaskDialog extends React.Component {
   constructor(props) {
     super(props);
-    this.openAlert = this.openAlert.bind(this);
-    this.closeAlert = this.closeAlert.bind(this);
-    this.state = {
-      alertOpen: false
-    };
-  }
-
-  openAlert() {
-    this.setState({
-      alertOpen: true
-    });
-  }
-
-  closeAlert() {
-    this.setState({
-      alertOpen: false
-    });
   }
 
   handleDelete = () => {
@@ -44,7 +22,7 @@ class DeleteTaskDialog extends React.Component {
         // Successfully deleted task
         this.props.onClose();
         this.props.refreshTaskList();
-        this.openAlert();
+        this.props.openDeleteAlert();
       } else {
         // Failed to delete task
         navigate("/");
@@ -55,44 +33,32 @@ class DeleteTaskDialog extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
-        <Dialog
-          open={this.props.open}
-          onClose={this.props.onClose} // Responsive full-screen
-          fullWidth={true}
-          maxWidth="md"
-          scroll="paper">
-          <DialogTitle>
-            Delete task - {this.props.task.attributes.name}
-          </DialogTitle>
-          <DialogContent>
-            Are you sure you want to delete this task?
-          </DialogContent>
-          <DialogActions>
-            <Button
-              autoFocus
-              onClick={this.handleDelete}
-              color="secondary">
-              Yes
-            </Button>
-            <Button
-              onClick={this.props.onClose}
-              color="primary">
-              No
-            </Button>
-          </DialogActions>
-        </Dialog>
-        <Snackbar
-          open={this.state.alertOpen}
-          autoHideDuration={2000}
-          onClose={this.closeAlert}>
-          <Alert
-            onClose={this.closeAlert}
-            severity="success">
-            Successfully deleted task
-          </Alert>
-        </Snackbar>
-      </React.Fragment>
+      <Dialog
+        open={this.props.open}
+        onClose={this.props.onClose} // Responsive full-screen
+        fullWidth={true}
+        maxWidth="md"
+        scroll="paper">
+        <DialogTitle>
+          Delete task - {this.props.task.attributes.name}
+        </DialogTitle>
+        <DialogContent>
+          Are you sure you want to delete this task?
+        </DialogContent>
+        <DialogActions>
+          <Button
+            autoFocus
+            onClick={this.handleDelete}
+            color="secondary">
+            Yes
+          </Button>
+          <Button
+            onClick={this.props.onClose}
+            color="primary">
+            No
+          </Button>
+        </DialogActions>
+      </Dialog>
     );
   }
 }

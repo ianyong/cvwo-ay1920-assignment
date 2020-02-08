@@ -1,11 +1,16 @@
 import React, { useEffect } from "react";
 import { navigate } from "@reach/router";
 import clsx from "clsx";
-import { makeStyles } from "@material-ui/core";
+import { makeStyles, Snackbar } from "@material-ui/core";
 import AppBar from "./AppBar";
 import Drawer from "./Drawer";
 import TaskList from "./TaskList";
 import Fab from "./Fab";
+import MuiAlert from "@material-ui/lab/Alert";
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 function PersistentDrawer() {
   const drawerWidth = 240;
@@ -18,6 +23,7 @@ function PersistentDrawer() {
   const [update, setUpdate] = React.useState(true); // Dummy state for refreshing component
   const [emptyDisplay, setEmptyDisplay] = React.useState(false);
   const [userDetails, setUserDetails] = React.useState({first_name: "", last_name: "", email: ""});
+  const [deleteAlertOpen, setDeleteAlertOpen] = React.useState(false);
 
   // Retrieve user details on mount
   useEffect(() => { getUserInfo(); }, []);
@@ -32,7 +38,15 @@ function PersistentDrawer() {
 
   const refreshTaskList = () => {
     setUpdate(!update);
-  }
+  };
+
+  const openDeleteAlert = () => {
+    setDeleteAlertOpen(true);
+  };
+
+  const closeDeleteAlert = () => {
+    setDeleteAlertOpen(false);
+  };
 
   const getUserInfo = async () => {
     let token = localStorage.getItem("token");
@@ -87,39 +101,52 @@ function PersistentDrawer() {
   }))();
 
   return (
-    <div className={styles.root}>
-      <AppBar
-        drawerWidth={drawerWidth}
-        open={open}
-        handleDrawerOpen={handleDrawerOpen} />
-      <Drawer
-        drawerWidth={drawerWidth}
-        open={open}
-        handleDrawerClose={handleDrawerClose}
-        dateRange={dateRange}
-        setDateRange={setDateRange}
-        showCompleted={showCompleted}
-        setShowCompleted={setShowCompleted}
-        update={update}
-        refreshTaskList={refreshTaskList}
-        userDetails={userDetails}
-        getUserInfo={getUserInfo} />
-      <main
-        className={clsx(styles.content, {
-          [styles.contentShift]: open,
-          [styles.contentEmpty]: emptyDisplay
-        })}>
-        <div className={styles.drawerHeader} />
-        <TaskList
+    <React.Fragment>
+      <div className={styles.root}>
+        <AppBar
+          drawerWidth={drawerWidth}
+          open={open}
+          handleDrawerOpen={handleDrawerOpen} />
+        <Drawer
+          drawerWidth={drawerWidth}
+          open={open}
+          handleDrawerClose={handleDrawerClose}
           dateRange={dateRange}
+          setDateRange={setDateRange}
           showCompleted={showCompleted}
+          setShowCompleted={setShowCompleted}
           update={update}
-          setEmptyDisplay={setEmptyDisplay}
-          refreshTaskList={refreshTaskList} />
-        <Fab
-          refreshTaskList={refreshTaskList} />
-      </main>
-    </div>
+          refreshTaskList={refreshTaskList}
+          userDetails={userDetails}
+          getUserInfo={getUserInfo} />
+        <main
+          className={clsx(styles.content, {
+            [styles.contentShift]: open,
+            [styles.contentEmpty]: emptyDisplay
+          })}>
+          <div className={styles.drawerHeader} />
+          <TaskList
+            dateRange={dateRange}
+            showCompleted={showCompleted}
+            update={update}
+            setEmptyDisplay={setEmptyDisplay}
+            refreshTaskList={refreshTaskList}
+            openDeleteAlert={openDeleteAlert} />
+          <Fab
+            refreshTaskList={refreshTaskList} />
+        </main>
+      </div>
+      <Snackbar
+        open={deleteAlertOpen}
+        autoHideDuration={2000}
+        onClose={closeDeleteAlert}>
+        <Alert
+          onClose={closeDeleteAlert}
+          severity="success">
+          Successfully deleted task
+        </Alert>
+      </Snackbar>
+    </React.Fragment>
   );
 }
 

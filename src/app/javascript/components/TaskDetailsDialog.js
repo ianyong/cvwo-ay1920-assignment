@@ -145,7 +145,8 @@ class TaskDetailsDialog extends React.Component {
           task={this.props.task}
           open={this.state.deleteDialogOpen}
           onClose={this.closeDeleteDialog}
-          refreshTaskList={this.props.refreshTaskList} />
+          refreshTaskList={this.props.refreshTaskList}
+          openDeleteAlert={this.props.openDeleteAlert} />
         <Snackbar
           open={this.state.editAlertOpen}
           autoHideDuration={2000}

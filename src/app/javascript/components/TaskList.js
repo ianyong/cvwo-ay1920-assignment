@@ -90,7 +90,8 @@ class TaskList extends React.Component {
                   key={index}
                   task={task}
                   index={index}
-                  refreshTaskList={this.props.refreshTaskList} />
+                  refreshTaskList={this.props.refreshTaskList}
+                  openDeleteAlert={this.props.openDeleteAlert} />
               </React.Fragment>
             );
           })}
