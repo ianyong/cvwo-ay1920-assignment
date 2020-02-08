@@ -158,10 +158,10 @@ const Drawer = props => {
   };
 
   const toggleShowCompletedTasks = (event) => {
-    let value = showCompleted === 0 ? 1 :0;
+    let value = showCompleted === 0 ? 1 : 0;
     localStorage.setItem("show_completed", value);
     setShowCompleted(value);
-    showCompleted ? openShowPastAlert() : openHidePastAlert();
+    showCompleted ? openHidePastAlert() : openShowPastAlert();
   };
 
   return (
