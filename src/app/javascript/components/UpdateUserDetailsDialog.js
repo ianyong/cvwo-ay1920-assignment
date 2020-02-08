@@ -71,6 +71,7 @@ class UpdateUserDetailsDialog extends React.Component {
       if (response.status === 200) {
         // Successfully updated user details
         this.props.onClose();
+        this.props.getUserInfo();
       } else if (response.status === 400) {
         if (error === "Invalid password") {
           // Invalid password

@@ -102,7 +102,8 @@ function PersistentDrawer() {
         setShowCompleted={setShowCompleted}
         update={update}
         refreshTaskList={refreshTaskList}
-        userDetails={userDetails} />
+        userDetails={userDetails}
+        getUserInfo={getUserInfo} />
       <main
         className={clsx(styles.content, {
           [styles.contentShift]: open,

@@ -29,7 +29,8 @@ const Drawer = props => {
     setShowCompleted,
     update,
     refreshTaskList,
-    userDetails
+    userDetails,
+    getUserInfo
   } = props;
 
   const styles = makeStyles(theme => ({
@@ -274,7 +275,8 @@ const Drawer = props => {
         open={userDetailsDialogOpen}
         onClose={closeUserDetailsDialog}
         userDetails={userDetails}
-        refreshUserDetailsForm={refreshUserDetailsForm} />
+        refreshUserDetailsForm={refreshUserDetailsForm}
+        getUserInfo={getUserInfo} />
       <LogoutDialog
         open={logoutDialogOpen}
         onClose={closeLogoutDialog} />
