@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     post 'auth/login', to: 'users#login'
     post 'users/filters', to: 'users#set_filters'
     get 'users/filters', to: 'users#get_filters'
+    post 'users/details', to: 'users#update_user_details'
     get 'users/details', to: 'users#get_user_details'
     jsonapi_resources :tasks
     jsonapi_resources :tags

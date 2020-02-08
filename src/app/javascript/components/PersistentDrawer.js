@@ -36,7 +36,7 @@ function PersistentDrawer() {
 
   const getUserInfo = async () => {
     let token = localStorage.getItem("token");
-    const response = await fetch("/api/users/details", {
+    const response = await fetch("/api/users/details/", {
       method: "GET",
       headers: {
         "Content-Type": "application/vnd.api+json",

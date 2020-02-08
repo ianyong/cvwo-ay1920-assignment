@@ -8,7 +8,9 @@ import EventNoteIcon from "@material-ui/icons/EventNote";
 import LabelIcon from "@material-ui/icons/Label";
 import FaceIcon from "@material-ui/icons/Face";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import TagsDialog from "./TagsDialog";
+import UpdateUserDetailsDialog from "./UpdateUserDetailsDialog";
 import LogoutDialog from "./LogoutDialog";
 import MuiAlert from "@material-ui/lab/Alert";
 
@@ -50,6 +52,8 @@ const Drawer = props => {
 
   const [tagsDialogOpen, setTagsDialogOpen] = React.useState(false);
   const [logoutDialogOpen, setLogoutDialogOpen] = React.useState(false);
+  const [userDetailsDialogOpen, setUserDetailsDialogOpen] = React.useState(false);
+  const [refreshUserDetailsForm, setRefreshUserDetailsForm] = React.useState(false);
   const [showPastAlertOpen, setShowPastAlertOpen] = React.useState(false);
   const [hidePastAlertOpen, setHidePastAlertOpen] = React.useState(false);
   const [dateTodayAlertOpen, setDateTodayAlertOpen] = React.useState(false);
@@ -70,6 +74,19 @@ const Drawer = props => {
 
   const closeLogoutDialog = () => {
     setLogoutDialogOpen(false);
+  };
+
+  const openUserDetailsDialog = () => {
+    setUserDetailsDialogOpen(true);
+  };
+
+  const closeUserDetailsDialog = () => {
+    setUserDetailsDialogOpen(false);
+    toggleRefreshUserDetailsForm();
+  };
+
+  const toggleRefreshUserDetailsForm = () => {
+    setRefreshUserDetailsForm(!refreshUserDetailsForm);
   };
 
   const openShowPastAlert = () => {
@@ -230,6 +247,15 @@ const Drawer = props => {
         <List>
           <ListItem
             button
+            onClick={openUserDetailsDialog}>
+            <ListItemIcon>
+              <AccountCircleIcon />
+            </ListItemIcon>
+            <ListItemText
+              primary="Edit account details" />
+          </ListItem>
+          <ListItem
+            button
             onClick={openLogoutDialog}>
             <ListItemIcon>
               <ExitToAppIcon />
@@ -244,6 +270,11 @@ const Drawer = props => {
         onClose={closeTagsDialog}
         update={update}
         refreshTaskList={refreshTaskList} />
+      <UpdateUserDetailsDialog
+        open={userDetailsDialogOpen}
+        onClose={closeUserDetailsDialog}
+        userDetails={userDetails}
+        refreshUserDetailsForm={refreshUserDetailsForm} />
       <LogoutDialog
         open={logoutDialogOpen}
         onClose={closeLogoutDialog} />

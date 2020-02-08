@@ -43,6 +43,24 @@ class Api::UsersController < ApiController
     }, status: 200
   end
 
+  def update_user_details
+    @user = context[:current_user]
+
+    command = AuthenticateUser.call(@user.email, params[:current_password])
+    if command.success?
+      @user.first_name = params[:first_name]
+      @user.last_name = params[:last_name]
+      @user.email = params[:email]
+      if @user.save
+        render json: { message: "Successfully updated user" }, status: 200
+      else
+        render json: { error: "Unable to save user details" }, status: 400
+      end
+    else
+      render json: { error: "Invalid password" }, status: 400
+    end
+  end
+
   private
 
   def authenticate(email, password)
@@ -70,6 +88,16 @@ class Api::UsersController < ApiController
   def tags_params
     params.permit(
       :tags_filter
+    )
+  end
+
+  def update_user_params
+    params.permit(
+      :first_name,
+      :last_name,
+      :email,
+      :new_password,
+      :current_password
     )
   end
 end
